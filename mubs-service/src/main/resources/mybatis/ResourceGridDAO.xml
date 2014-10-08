@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceGridDAO">
+<!--
+insert
+update
+updateNull
+deleteById
+deleteByCondition
+deleteByProperty
+fetch
+findOne
+findList
+findAll
+queryPage
+like
+queryList
+queryOne
+count
+selectMaxId
+updateOrSave
+selectOne
+selectList
+-->
+    <sql id="Base_Column_List">
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        resId,
+        displayName,
+        colId,
+        orderNum,
+        width,
+        editoptions,
+        edittype,
+        unformat,
+        description,
+        moduleName
+    </sql>
+    <insert id="insert" parameterType="ResourceGrid">
+        INSERT INTO mubs_resource_grid (
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        resId,
+        displayName,
+        colId,
+        orderNum,
+        width,
+        editoptions,
+        edittype,
+        unformat,
+        description,
+        moduleName
+        ) VALUES (
+        #{id},
+        #{creator},
+        #{createDate},
+        #{lastModifier},
+        #{lastModDate},
+        #{status},
+        #{resId},
+        #{displayName},
+        #{colId},
+        #{orderNum},
+        #{width},
+        #{editoptions},
+        #{edittype},
+        #{unformat},
+        #{description},
+        #{moduleName}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="ResourceGrid">
+        UPDATE mubs_resource_grid
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createDate!=null">
+                createDate = #{createDate},
+            </if>
+            <if test="lastModifier!=null">
+                lastModifier = #{lastModifier},
+            </if>
+            <if test="lastModDate!=null">
+                lastModDate = #{lastModDate},
+            </if>
+            <if test="status!=null">
+                status = #{status},
+            </if>
+            <if test="resId!=null">
+                resId = #{resId},
+            </if>
+            <if test="displayName!=null">
+                displayName = #{displayName},
+            </if>
+            <if test="colId!=null">
+                colId = #{colId},
+            </if>
+            <if test="orderNum!=null">
+                orderNum = #{orderNum},
+            </if>
+            <if test="width!=null">
+                width = #{width},
+            </if>
+            <if test="editoptions!=null">
+                editoptions = #{editoptions},
+            </if>
+            <if test="edittype!=null">
+                edittype = #{edittype},
+            </if>
+            <if test="unformat!=null">
+                unformat = #{unformat},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+            <if test="moduleName!=null">
+                moduleName = #{moduleName},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE mubs_resource_grid
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+            <if test="map.resId!=null">
+                resId = #{map.resId},
+            </if>
+            <if test="map.displayName!=null">
+                displayName = #{map.displayName},
+            </if>
+            <if test="map.colId!=null">
+                colId = #{map.colId},
+            </if>
+            <if test="map.orderNum!=null">
+                orderNum = #{map.orderNum},
+            </if>
+            <if test="map.width!=null">
+                width = #{map.width},
+            </if>
+            <if test="map.editoptions!=null">
+                editoptions = #{map.editoptions},
+            </if>
+            <if test="map.edittype!=null">
+                edittype = #{map.edittype},
+            </if>
+            <if test="map.unformat!=null">
+                unformat = #{map.unformat},
+            </if>
+            <if test="map.description!=null">
+                description = #{map.description},
+            </if>
+            <if test="map.moduleName!=null">
+                moduleName = #{map.moduleName},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+
+    <insert id="insertMap" >
+        INSERT INTO mubs_resource_grid (
+                id,
+                creator,
+                createDate,
+                lastModifier,
+                lastModDate,
+                status,
+                resId,
+                displayName,
+                colId,
+                orderNum,
+                width,
+                editoptions,
+                edittype,
+                unformat,
+                description,
+                moduleName
+        ) VALUES (
+                #{map.id},
+                #{map.creator},
+                #{map.createDate},
+                #{map.lastModifier},
+                #{map.lastModDate},
+                #{map.status},
+                #{map.resId},
+                #{map.displayName},
+                #{map.colId},
+                #{map.orderNum},
+                #{map.width},
+                #{map.editoptions},
+                #{map.edittype},
+                #{map.unformat},
+                #{map.description},
+                #{map.moduleName}
+        )
+    </insert>
+
+
+    <update id="updateNull" parameterType="ResourceGrid">
+        UPDATE mubs_resource_grid
+        <trim prefix="SET" suffixOverrides=",">
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+            resId = #{resId},
+            displayName = #{displayName},
+            colId = #{colId},
+            orderNum = #{orderNum},
+            width = #{width},
+            editoptions = #{editoptions},
+            edittype = #{edittype},
+            unformat = #{unformat},
+            description = #{description},
+            moduleName = #{moduleName},
+        </trim>
+        WHERE
+        id = #{id} 
+    </update>
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="resId!=null">
+                AND resId = #{resId}
+            </if>
+            <if test="displayName!=null">
+                AND displayName = #{displayName}
+            </if>
+            <if test="colId!=null">
+                AND colId = #{colId}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="width!=null">
+                AND width = #{width}
+            </if>
+            <if test="editoptions!=null">
+                AND editoptions = #{editoptions}
+            </if>
+            <if test="edittype!=null">
+                AND edittype = #{edittype}
+            </if>
+            <if test="unformat!=null">
+                AND unformat = #{unformat}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="moduleName!=null">
+                AND moduleName = #{moduleName}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM mubs_resource_grid WHERE
+        ${property} = #{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid WHERE
+        ${property} = #{value}
+    </select>
+
+    <select id="findAll" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+    </select>
+
+    <select id="queryPage" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+        </where>
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like '%#{id}%'
+            </if>
+            <if test="creator!=null">
+                AND creator like '%#{creator}%'
+            </if>
+            <if test="createDate!=null">
+                AND createDate like '%#{createDate}%'
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like '%#{lastModifier}%'
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like '%#{lastModDate}%'
+            </if>
+            <if test="status!=null">
+                AND status like '%#{status}%'
+            </if>
+            <if test="resId!=null">
+                AND resId like '%#{resId}%'
+            </if>
+            <if test="displayName!=null">
+                AND displayName like '%#{displayName}%'
+            </if>
+            <if test="colId!=null">
+                AND colId like '%#{colId}%'
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum like '%#{orderNum}%'
+            </if>
+            <if test="width!=null">
+                AND width like '%#{width}%'
+            </if>
+            <if test="editoptions!=null">
+                AND editoptions like '%#{editoptions}%'
+            </if>
+            <if test="edittype!=null">
+                AND edittype like '%#{edittype}%'
+            </if>
+            <if test="unformat!=null">
+                AND unformat like '%#{unformat}%'
+            </if>
+            <if test="description!=null">
+                AND description like '%#{description}%'
+            </if>
+            <if test="moduleName!=null">
+                AND moduleName like '%#{moduleName}%'
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="resId!=null">
+                AND resId = #{resId}
+            </if>
+            <if test="displayName!=null">
+                AND displayName = #{displayName}
+            </if>
+            <if test="colId!=null">
+                AND colId = #{colId}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="width!=null">
+                AND width = #{width}
+            </if>
+            <if test="editoptions!=null">
+                AND editoptions = #{editoptions}
+            </if>
+            <if test="edittype!=null">
+                AND edittype = #{edittype}
+            </if>
+            <if test="unformat!=null">
+                AND unformat = #{unformat}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="moduleName!=null">
+                AND moduleName = #{moduleName}
+            </if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="ResourceGrid">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_grid
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="resId!=null">
+                AND resId = #{resId}
+            </if>
+            <if test="displayName!=null">
+                AND displayName = #{displayName}
+            </if>
+            <if test="colId!=null">
+                AND colId = #{colId}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="width!=null">
+                AND width = #{width}
+            </if>
+            <if test="editoptions!=null">
+                AND editoptions = #{editoptions}
+            </if>
+            <if test="edittype!=null">
+                AND edittype = #{edittype}
+            </if>
+            <if test="unformat!=null">
+                AND unformat = #{unformat}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="moduleName!=null">
+                AND moduleName = #{moduleName}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM mubs_resource_grid
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT
+        MAX(id)
+        FROM mubs_resource_grid
+    </select>
+
+</mapper>
+

@@ -1,0 +1,10 @@
+
+
+include 'mubs-domain'
+
+include 'mubs-api'
+
+include 'mubs-service'
+
+include 'mubs-war'
+

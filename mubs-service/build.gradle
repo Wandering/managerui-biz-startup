@@ -1,0 +1,7 @@
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile group: "cn.thinkjoy.common", name: "thinkjoy-mu-common", version: "0.0.2-SNAPSHOT", changing: true
+
+    compile 'mysql:mysql-connector-java:5.1.26'
+}

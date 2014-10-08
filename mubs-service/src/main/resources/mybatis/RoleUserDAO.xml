@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IRoleUserDAO">
+<!--
+insert
+update
+updateNull
+deleteById
+deleteByCondition
+deleteByProperty
+fetch
+findOne
+findList
+findAll
+queryPage
+like
+queryList
+queryOne
+count
+selectMaxId
+updateOrSave
+selectOne
+selectList
+-->
+    <sql id="Base_Column_List">
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        userId,
+        roleId
+    </sql>
+    <insert id="insert" parameterType="RoleUser">
+        INSERT INTO mubs_role_user (
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        userId,
+        roleId
+        ) VALUES (
+        #{id},
+        #{creator},
+        #{createDate},
+        #{lastModifier},
+        #{lastModDate},
+        #{status},
+        #{userId},
+        #{roleId}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="RoleUser">
+        UPDATE mubs_role_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createDate!=null">
+                createDate = #{createDate},
+            </if>
+            <if test="lastModifier!=null">
+                lastModifier = #{lastModifier},
+            </if>
+            <if test="lastModDate!=null">
+                lastModDate = #{lastModDate},
+            </if>
+            <if test="status!=null">
+                status = #{status},
+            </if>
+            <if test="userId!=null">
+                userId = #{userId},
+            </if>
+            <if test="roleId!=null">
+                roleId = #{roleId},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE mubs_role_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+            <if test="map.userId!=null">
+                userId = #{map.userId},
+            </if>
+            <if test="map.roleId!=null">
+                roleId = #{map.roleId},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+
+    <insert id="insertMap" >
+        INSERT INTO mubs_role_user (
+                id,
+                creator,
+                createDate,
+                lastModifier,
+                lastModDate,
+                status,
+                userId,
+                roleId
+        ) VALUES (
+                #{map.id},
+                #{map.creator},
+                #{map.createDate},
+                #{map.lastModifier},
+                #{map.lastModDate},
+                #{map.status},
+                #{map.userId},
+                #{map.roleId}
+        )
+    </insert>
+
+
+    <update id="updateNull" parameterType="RoleUser">
+        UPDATE mubs_role_user
+        <trim prefix="SET" suffixOverrides=",">
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+            userId = #{userId},
+            roleId = #{roleId},
+        </trim>
+        WHERE
+        id = #{id} 
+    </update>
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="userId!=null">
+                AND userId = #{userId}
+            </if>
+            <if test="roleId!=null">
+                AND roleId = #{roleId}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM mubs_role_user WHERE
+        ${property} = #{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user WHERE
+        ${property} = #{value}
+    </select>
+
+    <select id="findAll" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+    </select>
+
+    <select id="queryPage" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+        </where>
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like '%#{id}%'
+            </if>
+            <if test="creator!=null">
+                AND creator like '%#{creator}%'
+            </if>
+            <if test="createDate!=null">
+                AND createDate like '%#{createDate}%'
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like '%#{lastModifier}%'
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like '%#{lastModDate}%'
+            </if>
+            <if test="status!=null">
+                AND status like '%#{status}%'
+            </if>
+            <if test="userId!=null">
+                AND userId like '%#{userId}%'
+            </if>
+            <if test="roleId!=null">
+                AND roleId like '%#{roleId}%'
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="userId!=null">
+                AND userId = #{userId}
+            </if>
+            <if test="roleId!=null">
+                AND roleId = #{roleId}
+            </if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="RoleUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_role_user
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="userId!=null">
+                AND userId = #{userId}
+            </if>
+            <if test="roleId!=null">
+                AND roleId = #{roleId}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM mubs_role_user
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT
+        MAX(id)
+        FROM mubs_role_user
+    </select>
+
+</mapper>
+

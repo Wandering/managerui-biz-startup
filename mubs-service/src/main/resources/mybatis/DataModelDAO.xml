@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IDataModelDAO">
+<!--
+insert
+update
+updateNull
+deleteById
+deleteByCondition
+deleteByProperty
+fetch
+findOne
+findList
+findAll
+queryPage
+like
+queryList
+queryOne
+count
+selectMaxId
+updateOrSave
+selectOne
+selectList
+-->
+    <sql id="Base_Column_List">
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        priority,
+        modelId,
+        assignUrl,
+        whereSql,
+        name
+    </sql>
+    <insert id="insert" parameterType="DataModel">
+        INSERT INTO mubs_data_model (
+        id,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status,
+        priority,
+        modelId,
+        assignUrl,
+        whereSql,
+        name
+        ) VALUES (
+        #{id},
+        #{creator},
+        #{createDate},
+        #{lastModifier},
+        #{lastModDate},
+        #{status},
+        #{priority},
+        #{modelId},
+        #{assignUrl},
+        #{whereSql},
+        #{name}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="DataModel">
+        UPDATE mubs_data_model
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createDate!=null">
+                createDate = #{createDate},
+            </if>
+            <if test="lastModifier!=null">
+                lastModifier = #{lastModifier},
+            </if>
+            <if test="lastModDate!=null">
+                lastModDate = #{lastModDate},
+            </if>
+            <if test="status!=null">
+                status = #{status},
+            </if>
+            <if test="priority!=null">
+                priority = #{priority},
+            </if>
+            <if test="modelId!=null">
+                modelId = #{modelId},
+            </if>
+            <if test="assignUrl!=null">
+                assignUrl = #{assignUrl},
+            </if>
+            <if test="whereSql!=null">
+                whereSql = #{whereSql},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE mubs_data_model
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+            <if test="map.priority!=null">
+                priority = #{map.priority},
+            </if>
+            <if test="map.modelId!=null">
+                modelId = #{map.modelId},
+            </if>
+            <if test="map.assignUrl!=null">
+                assignUrl = #{map.assignUrl},
+            </if>
+            <if test="map.whereSql!=null">
+                whereSql = #{map.whereSql},
+            </if>
+            <if test="map.name!=null">
+                name = #{map.name},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+
+    <insert id="insertMap" >
+        INSERT INTO mubs_data_model (
+                id,
+                creator,
+                createDate,
+                lastModifier,
+                lastModDate,
+                status,
+                priority,
+                modelId,
+                assignUrl,
+                whereSql,
+                name
+        ) VALUES (
+                #{map.id},
+                #{map.creator},
+                #{map.createDate},
+                #{map.lastModifier},
+                #{map.lastModDate},
+                #{map.status},
+                #{map.priority},
+                #{map.modelId},
+                #{map.assignUrl},
+                #{map.whereSql},
+                #{map.name}
+        )
+    </insert>
+
+
+    <update id="updateNull" parameterType="DataModel">
+        UPDATE mubs_data_model
+        <trim prefix="SET" suffixOverrides=",">
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+            priority = #{priority},
+            modelId = #{modelId},
+            assignUrl = #{assignUrl},
+            whereSql = #{whereSql},
+            name = #{name},
+        </trim>
+        WHERE
+        id = #{id} 
+    </update>
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="priority!=null">
+                AND priority = #{priority}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="assignUrl!=null">
+                AND assignUrl = #{assignUrl}
+            </if>
+            <if test="whereSql!=null">
+                AND whereSql = #{whereSql}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM mubs_data_model WHERE
+        ${property} = #{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model WHERE
+        ${property} = #{value}
+    </select>
+
+    <select id="findAll" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+    </select>
+
+    <select id="queryPage" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+        </where>
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like '%#{id}%'
+            </if>
+            <if test="creator!=null">
+                AND creator like '%#{creator}%'
+            </if>
+            <if test="createDate!=null">
+                AND createDate like '%#{createDate}%'
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like '%#{lastModifier}%'
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like '%#{lastModDate}%'
+            </if>
+            <if test="status!=null">
+                AND status like '%#{status}%'
+            </if>
+            <if test="priority!=null">
+                AND priority like '%#{priority}%'
+            </if>
+            <if test="modelId!=null">
+                AND modelId like '%#{modelId}%'
+            </if>
+            <if test="assignUrl!=null">
+                AND assignUrl like '%#{assignUrl}%'
+            </if>
+            <if test="whereSql!=null">
+                AND whereSql like '%#{whereSql}%'
+            </if>
+            <if test="name!=null">
+                AND name like '%#{name}%'
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="priority!=null">
+                AND priority = #{priority}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="assignUrl!=null">
+                AND assignUrl = #{assignUrl}
+            </if>
+            <if test="whereSql!=null">
+                AND whereSql = #{whereSql}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="DataModel">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_data_model
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+            <if test="priority!=null">
+                AND priority = #{priority}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="assignUrl!=null">
+                AND assignUrl = #{assignUrl}
+            </if>
+            <if test="whereSql!=null">
+                AND whereSql = #{whereSql}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM mubs_data_model
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT
+        MAX(id)
+        FROM mubs_data_model
+    </select>
+
+</mapper>
+

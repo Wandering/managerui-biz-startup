@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceDAO">
+<!--
+insert
+update
+updateNull
+deleteById
+deleteByCondition
+deleteByProperty
+fetch
+findOne
+findList
+findAll
+queryPage
+like
+queryList
+queryOne
+count
+selectMaxId
+updateOrSave
+selectOne
+selectList
+-->
+    <sql id="Base_Column_List">
+        id,
+        url,
+        orderNum,
+        parentId,
+        number,
+        longNumber,
+        name,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        description,
+        modelId,
+        bizModelName
+    </sql>
+    <insert id="insert" parameterType="Resource">
+        INSERT INTO mubs_resource (
+        id,
+        url,
+        orderNum,
+        parentId,
+        number,
+        longNumber,
+        name,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        description,
+        modelId,
+        bizModelName
+        ) VALUES (
+        #{id},
+        #{url},
+        #{orderNum},
+        #{parentId},
+        #{number},
+        #{longNumber},
+        #{name},
+        #{creator},
+        #{createDate},
+        #{lastModifier},
+        #{lastModDate},
+        #{description},
+        #{modelId},
+        #{bizModelName}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="Resource">
+        UPDATE mubs_resource
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="url!=null">
+                url = #{url},
+            </if>
+            <if test="orderNum!=null">
+                orderNum = #{orderNum},
+            </if>
+            <if test="parentId!=null">
+                parentId = #{parentId},
+            </if>
+            <if test="number!=null">
+                number = #{number},
+            </if>
+            <if test="longNumber!=null">
+                longNumber = #{longNumber},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createDate!=null">
+                createDate = #{createDate},
+            </if>
+            <if test="lastModifier!=null">
+                lastModifier = #{lastModifier},
+            </if>
+            <if test="lastModDate!=null">
+                lastModDate = #{lastModDate},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+            <if test="modelId!=null">
+                modelId = #{modelId},
+            </if>
+            <if test="bizModelName!=null">
+                bizModelName = #{bizModelName},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE mubs_resource
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.url!=null">
+                url = #{map.url},
+            </if>
+            <if test="map.orderNum!=null">
+                orderNum = #{map.orderNum},
+            </if>
+            <if test="map.parentId!=null">
+                parentId = #{map.parentId},
+            </if>
+            <if test="map.number!=null">
+                number = #{map.number},
+            </if>
+            <if test="map.longNumber!=null">
+                longNumber = #{map.longNumber},
+            </if>
+            <if test="map.name!=null">
+                name = #{map.name},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.description!=null">
+                description = #{map.description},
+            </if>
+            <if test="map.modelId!=null">
+                modelId = #{map.modelId},
+            </if>
+            <if test="map.bizModelName!=null">
+                bizModelName = #{map.bizModelName},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+
+    <insert id="insertMap" >
+        INSERT INTO mubs_resource (
+                id,
+                url,
+                orderNum,
+                parentId,
+                number,
+                longNumber,
+                name,
+                creator,
+                createDate,
+                lastModifier,
+                lastModDate,
+                description,
+                modelId,
+                bizModelName
+        ) VALUES (
+                #{map.id},
+                #{map.url},
+                #{map.orderNum},
+                #{map.parentId},
+                #{map.number},
+                #{map.longNumber},
+                #{map.name},
+                #{map.creator},
+                #{map.createDate},
+                #{map.lastModifier},
+                #{map.lastModDate},
+                #{map.description},
+                #{map.modelId},
+                #{map.bizModelName}
+        )
+    </insert>
+
+
+    <update id="updateNull" parameterType="Resource">
+        UPDATE mubs_resource
+        <trim prefix="SET" suffixOverrides=",">
+            url = #{url},
+            orderNum = #{orderNum},
+            parentId = #{parentId},
+            number = #{number},
+            longNumber = #{longNumber},
+            name = #{name},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            description = #{description},
+            modelId = #{modelId},
+            bizModelName = #{bizModelName},
+        </trim>
+        WHERE
+        id = #{id} 
+    </update>
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="url!=null">
+                AND url = #{url}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="parentId!=null">
+                AND parentId = #{parentId}
+            </if>
+            <if test="number!=null">
+                AND number = #{number}
+            </if>
+            <if test="longNumber!=null">
+                AND longNumber = #{longNumber}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="bizModelName!=null">
+                AND bizModelName = #{bizModelName}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM mubs_resource WHERE
+        ${property} = #{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource WHERE
+        ${property} = #{value}
+    </select>
+
+    <select id="findAll" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+    </select>
+
+    <select id="queryPage" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+        </where>
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like '%#{id}%'
+            </if>
+            <if test="url!=null">
+                AND url like '%#{url}%'
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum like '%#{orderNum}%'
+            </if>
+            <if test="parentId!=null">
+                AND parentId like '%#{parentId}%'
+            </if>
+            <if test="number!=null">
+                AND number like '%#{number}%'
+            </if>
+            <if test="longNumber!=null">
+                AND longNumber like '%#{longNumber}%'
+            </if>
+            <if test="name!=null">
+                AND name like '%#{name}%'
+            </if>
+            <if test="creator!=null">
+                AND creator like '%#{creator}%'
+            </if>
+            <if test="createDate!=null">
+                AND createDate like '%#{createDate}%'
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like '%#{lastModifier}%'
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like '%#{lastModDate}%'
+            </if>
+            <if test="description!=null">
+                AND description like '%#{description}%'
+            </if>
+            <if test="modelId!=null">
+                AND modelId like '%#{modelId}%'
+            </if>
+            <if test="bizModelName!=null">
+                AND bizModelName like '%#{bizModelName}%'
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="url!=null">
+                AND url = #{url}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="parentId!=null">
+                AND parentId = #{parentId}
+            </if>
+            <if test="number!=null">
+                AND number = #{number}
+            </if>
+            <if test="longNumber!=null">
+                AND longNumber = #{longNumber}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="bizModelName!=null">
+                AND bizModelName = #{bizModelName}
+            </if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="url!=null">
+                AND url = #{url}
+            </if>
+            <if test="orderNum!=null">
+                AND orderNum = #{orderNum}
+            </if>
+            <if test="parentId!=null">
+                AND parentId = #{parentId}
+            </if>
+            <if test="number!=null">
+                AND number = #{number}
+            </if>
+            <if test="longNumber!=null">
+                AND longNumber = #{longNumber}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="modelId!=null">
+                AND modelId = #{modelId}
+            </if>
+            <if test="bizModelName!=null">
+                AND bizModelName = #{bizModelName}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM mubs_resource
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT
+        MAX(id)
+        FROM mubs_resource
+    </select>
+
+</mapper>
+

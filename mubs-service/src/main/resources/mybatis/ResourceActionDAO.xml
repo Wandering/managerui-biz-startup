@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceActionDAO">
+<!--
+insert
+update
+updateNull
+deleteById
+deleteByCondition
+deleteByProperty
+fetch
+findOne
+findList
+findAll
+queryPage
+like
+queryList
+queryOne
+count
+selectMaxId
+updateOrSave
+selectOne
+selectList
+-->
+    <sql id="Base_Column_List">
+        id,
+        resourceId,
+        divId,
+        actionScript,
+        name,
+        actionAlias,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        description
+    </sql>
+    <insert id="insert" parameterType="ResourceAction">
+        INSERT INTO mubs_resource_action (
+        id,
+        resourceId,
+        divId,
+        actionScript,
+        name,
+        actionAlias,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        description
+        ) VALUES (
+        #{id},
+        #{resourceId},
+        #{divId},
+        #{actionScript},
+        #{name},
+        #{actionAlias},
+        #{creator},
+        #{createDate},
+        #{lastModifier},
+        #{lastModDate},
+        #{description}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="ResourceAction">
+        UPDATE mubs_resource_action
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="resourceId!=null">
+                resourceId = #{resourceId},
+            </if>
+            <if test="divId!=null">
+                divId = #{divId},
+            </if>
+            <if test="actionScript!=null">
+                actionScript = #{actionScript},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="actionAlias!=null">
+                actionAlias = #{actionAlias},
+            </if>
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createDate!=null">
+                createDate = #{createDate},
+            </if>
+            <if test="lastModifier!=null">
+                lastModifier = #{lastModifier},
+            </if>
+            <if test="lastModDate!=null">
+                lastModDate = #{lastModDate},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE mubs_resource_action
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.resourceId!=null">
+                resourceId = #{map.resourceId},
+            </if>
+            <if test="map.divId!=null">
+                divId = #{map.divId},
+            </if>
+            <if test="map.actionScript!=null">
+                actionScript = #{map.actionScript},
+            </if>
+            <if test="map.name!=null">
+                name = #{map.name},
+            </if>
+            <if test="map.actionAlias!=null">
+                actionAlias = #{map.actionAlias},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.description!=null">
+                description = #{map.description},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+
+    <insert id="insertMap" >
+        INSERT INTO mubs_resource_action (
+                id,
+                resourceId,
+                divId,
+                actionScript,
+                name,
+                actionAlias,
+                creator,
+                createDate,
+                lastModifier,
+                lastModDate,
+                description
+        ) VALUES (
+                #{map.id},
+                #{map.resourceId},
+                #{map.divId},
+                #{map.actionScript},
+                #{map.name},
+                #{map.actionAlias},
+                #{map.creator},
+                #{map.createDate},
+                #{map.lastModifier},
+                #{map.lastModDate},
+                #{map.description}
+        )
+    </insert>
+
+
+    <update id="updateNull" parameterType="ResourceAction">
+        UPDATE mubs_resource_action
+        <trim prefix="SET" suffixOverrides=",">
+            resourceId = #{resourceId},
+            divId = #{divId},
+            actionScript = #{actionScript},
+            name = #{name},
+            actionAlias = #{actionAlias},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            description = #{description},
+        </trim>
+        WHERE
+        id = #{id} 
+    </update>
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="resourceId!=null">
+                AND resourceId = #{resourceId}
+            </if>
+            <if test="divId!=null">
+                AND divId = #{divId}
+            </if>
+            <if test="actionScript!=null">
+                AND actionScript = #{actionScript}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="actionAlias!=null">
+                AND actionAlias = #{actionAlias}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM mubs_resource_action WHERE
+        ${property} = #{value}
+    </delete>
+
+    <select id="fetch" parameterType="java.lang.Integer" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action WHERE
+        ${property} = #{value}
+    </select>
+
+    <select id="findAll" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+    </select>
+
+    <select id="queryPage" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+        </where>
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like '%#{id}%'
+            </if>
+            <if test="resourceId!=null">
+                AND resourceId like '%#{resourceId}%'
+            </if>
+            <if test="divId!=null">
+                AND divId like '%#{divId}%'
+            </if>
+            <if test="actionScript!=null">
+                AND actionScript like '%#{actionScript}%'
+            </if>
+            <if test="name!=null">
+                AND name like '%#{name}%'
+            </if>
+            <if test="actionAlias!=null">
+                AND actionAlias like '%#{actionAlias}%'
+            </if>
+            <if test="creator!=null">
+                AND creator like '%#{creator}%'
+            </if>
+            <if test="createDate!=null">
+                AND createDate like '%#{createDate}%'
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like '%#{lastModifier}%'
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like '%#{lastModDate}%'
+            </if>
+            <if test="description!=null">
+                AND description like '%#{description}%'
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="resourceId!=null">
+                AND resourceId = #{resourceId}
+            </if>
+            <if test="divId!=null">
+                AND divId = #{divId}
+            </if>
+            <if test="actionScript!=null">
+                AND actionScript = #{actionScript}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="actionAlias!=null">
+                AND actionAlias = #{actionAlias}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+        </trim>
+        ORDER BY ${orderBy} ${sortBy}
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="ResourceAction">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mubs_resource_action
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="resourceId!=null">
+                AND resourceId = #{resourceId}
+            </if>
+            <if test="divId!=null">
+                AND divId = #{divId}
+            </if>
+            <if test="actionScript!=null">
+                AND actionScript = #{actionScript}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="actionAlias!=null">
+                AND actionAlias = #{actionAlias}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) FROM mubs_resource_action
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Integer">
+        SELECT
+        MAX(id)
+        FROM mubs_resource_action
+    </select>
+
+</mapper>
+
