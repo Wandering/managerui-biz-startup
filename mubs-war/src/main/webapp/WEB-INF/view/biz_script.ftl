@@ -51,7 +51,7 @@ jQuery(function($) {
 
     jQuery(grid_selector).jqGrid({
         //direction: "rtl",
-        url: '/admin/mubs/${mainObj}s',
+        url: '/admin/${bizSys}/${mainObj}s',
         //subgrid options
         //subGrid : true,
         //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
@@ -144,7 +144,7 @@ jQuery(function($) {
             }, 0);
         },
 
-        editurl: "/admin/commonsave/${mainObj}",//nothing is saved
+        editurl: "/admin/${bizSys}/commonsave/${mainObj}",//nothing is saved
         <#--delurl: "/admin/commondel/${mainObj}",//nothing is saved-->
         <#--addurl: "/admin/commonadd/${mainObj}",//nothing is saved-->
         caption: "${title}"
