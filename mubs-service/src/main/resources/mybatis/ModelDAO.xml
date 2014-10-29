@@ -123,6 +123,65 @@ selectList
         id = #{map.id}
     </update>
 
+    <update id="updateByCondition">
+        UPDATE mubs_model
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+            <if test="update.name!=null">
+                name = #{update.name},
+            </if>
+            <if test="update.tblName!=null">
+                tblName = #{update.tblName},
+            </if>
+            <if test="update.description!=null">
+                description = #{update.description},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.tblName!=null">
+                AND tblName = #{condition.tblName}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+        </trim>
+    </update>
 
     <insert id="insertMap" >
         INSERT INTO mubs_model (

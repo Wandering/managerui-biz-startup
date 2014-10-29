@@ -1,9 +1,13 @@
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile "org.springframework:spring-test:$springVersion"
 
     compile group: "cn.thinkjoy.common", name: "thinkjoy-mu-common", version: "0.0.2-SNAPSHOT", changing: true
 
     compile 'mysql:mysql-connector-java:5.1.26'
+
+    compile 'com.alibaba:dubbo:2.5.3'
+    compile 'com.101tec:zkclient:0.4'
 
     compile project(':mubs-api')
 }

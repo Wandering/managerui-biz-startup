@@ -186,6 +186,107 @@ selectList
         id = #{map.id}
     </update>
 
+    <update id="updateByCondition">
+        UPDATE mubs_resource_grid
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+            <if test="update.resId!=null">
+                resId = #{update.resId},
+            </if>
+            <if test="update.displayName!=null">
+                displayName = #{update.displayName},
+            </if>
+            <if test="update.colId!=null">
+                colId = #{update.colId},
+            </if>
+            <if test="update.orderNum!=null">
+                orderNum = #{update.orderNum},
+            </if>
+            <if test="update.width!=null">
+                width = #{update.width},
+            </if>
+            <if test="update.editoptions!=null">
+                editoptions = #{update.editoptions},
+            </if>
+            <if test="update.edittype!=null">
+                edittype = #{update.edittype},
+            </if>
+            <if test="update.unformat!=null">
+                unformat = #{update.unformat},
+            </if>
+            <if test="update.description!=null">
+                description = #{update.description},
+            </if>
+            <if test="update.moduleName!=null">
+                moduleName = #{update.moduleName},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+            <if test="condition.resId!=null">
+                AND resId = #{condition.resId}
+            </if>
+            <if test="condition.displayName!=null">
+                AND displayName = #{condition.displayName}
+            </if>
+            <if test="condition.colId!=null">
+                AND colId = #{condition.colId}
+            </if>
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
+            </if>
+            <if test="condition.width!=null">
+                AND width = #{condition.width}
+            </if>
+            <if test="condition.editoptions!=null">
+                AND editoptions = #{condition.editoptions}
+            </if>
+            <if test="condition.edittype!=null">
+                AND edittype = #{condition.edittype}
+            </if>
+            <if test="condition.unformat!=null">
+                AND unformat = #{condition.unformat}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.moduleName!=null">
+                AND moduleName = #{condition.moduleName}
+            </if>
+        </trim>
+    </update>
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource_grid (

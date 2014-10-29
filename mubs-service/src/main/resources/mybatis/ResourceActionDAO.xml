@@ -141,6 +141,77 @@ selectList
         id = #{map.id}
     </update>
 
+    <update id="updateByCondition">
+        UPDATE mubs_resource_action
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.resourceId!=null">
+                resourceId = #{update.resourceId},
+            </if>
+            <if test="update.divId!=null">
+                divId = #{update.divId},
+            </if>
+            <if test="update.actionScript!=null">
+                actionScript = #{update.actionScript},
+            </if>
+            <if test="update.name!=null">
+                name = #{update.name},
+            </if>
+            <if test="update.actionAlias!=null">
+                actionAlias = #{update.actionAlias},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.description!=null">
+                description = #{update.description},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.resourceId!=null">
+                AND resourceId = #{condition.resourceId}
+            </if>
+            <if test="condition.divId!=null">
+                AND divId = #{condition.divId}
+            </if>
+            <if test="condition.actionScript!=null">
+                AND actionScript = #{condition.actionScript}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.actionAlias!=null">
+                AND actionAlias = #{condition.actionAlias}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+        </trim>
+    </update>
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource_action (

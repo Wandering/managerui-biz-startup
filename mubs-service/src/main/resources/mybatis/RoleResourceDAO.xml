@@ -123,6 +123,65 @@ selectList
         id = #{map.id}
     </update>
 
+    <update id="updateByCondition">
+        UPDATE mubs_role_resource
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+            <if test="update.resourceId!=null">
+                resourceId = #{update.resourceId},
+            </if>
+            <if test="update.resourceActionId!=null">
+                resourceActionId = #{update.resourceActionId},
+            </if>
+            <if test="update.roleId!=null">
+                roleId = #{update.roleId},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+            <if test="condition.resourceId!=null">
+                AND resourceId = #{condition.resourceId}
+            </if>
+            <if test="condition.resourceActionId!=null">
+                AND resourceActionId = #{condition.resourceActionId}
+            </if>
+            <if test="condition.roleId!=null">
+                AND roleId = #{condition.roleId}
+            </if>
+        </trim>
+    </update>
 
     <insert id="insertMap" >
         INSERT INTO mubs_role_resource (

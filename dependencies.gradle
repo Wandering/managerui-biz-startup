@@ -1,0 +1,3 @@
+allprojects {
+    springVersion = "4.1.0.RELEASE"
+}

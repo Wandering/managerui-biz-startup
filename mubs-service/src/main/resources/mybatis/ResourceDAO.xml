@@ -168,6 +168,95 @@ selectList
         id = #{map.id}
     </update>
 
+    <update id="updateByCondition">
+        UPDATE mubs_resource
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.url!=null">
+                url = #{update.url},
+            </if>
+            <if test="update.orderNum!=null">
+                orderNum = #{update.orderNum},
+            </if>
+            <if test="update.parentId!=null">
+                parentId = #{update.parentId},
+            </if>
+            <if test="update.number!=null">
+                number = #{update.number},
+            </if>
+            <if test="update.longNumber!=null">
+                longNumber = #{update.longNumber},
+            </if>
+            <if test="update.name!=null">
+                name = #{update.name},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.description!=null">
+                description = #{update.description},
+            </if>
+            <if test="update.modelId!=null">
+                modelId = #{update.modelId},
+            </if>
+            <if test="update.bizModelName!=null">
+                bizModelName = #{update.bizModelName},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
+            </if>
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
+            </if>
+            <if test="condition.parentId!=null">
+                AND parentId = #{condition.parentId}
+            </if>
+            <if test="condition.number!=null">
+                AND number = #{condition.number}
+            </if>
+            <if test="condition.longNumber!=null">
+                AND longNumber = #{condition.longNumber}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.modelId!=null">
+                AND modelId = #{condition.modelId}
+            </if>
+            <if test="condition.bizModelName!=null">
+                AND bizModelName = #{condition.bizModelName}
+            </if>
+        </trim>
+    </update>
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource (

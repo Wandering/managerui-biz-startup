@@ -2,6 +2,8 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: "sonar-runner"
 
+apply from: 'dependencies.gradle'
+
 sourceCompatibility = 1.7
 
 //删除父目录下的test，避免test task执行失败
