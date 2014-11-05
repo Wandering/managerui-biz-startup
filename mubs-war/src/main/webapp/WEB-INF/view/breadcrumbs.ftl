@@ -3,15 +3,14 @@
         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
     </script>
 
-    <!-- TODO  动态化-->
     <ul class="breadcrumb">
         <li>
             <i class="ace-icon fa fa-home home-icon"></i>
-            <a href="#">Home</a>
+            <a href="#">首页</a>
         </li>
 
         <li>
-            <a href="#">Tables</a>
+            <a href="#">${parentTitle}</a>
         </li>
         <li class="active">${title}</li>
     </ul><!-- /.breadcrumb -->
