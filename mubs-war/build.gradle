@@ -1,9 +1,9 @@
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    compile 'org.freemarker:freemarker:2.3.20'
+    compile "org.freemarker:freemarker:$freemarkerVersion"
 
-    compile group: "cn.thinkjoy.common", name: "thinkjoy-mu-common", version: "0.0.2-SNAPSHOT", changing: true
+    compile group: "cn.thinkjoy.common", name: "thinkjoy-mu-common", version: "$thinkjoyCommonVersion", changing: true
 
     compile project(':mubs-api')
     compile project(':mubs-service')

@@ -3,7 +3,6 @@ apply plugin: 'application'
 apply plugin: "sonar-runner"
 
 apply from: 'dependencies.gradle'
-
 sourceCompatibility = 1.7
 
 //删除父目录下的test，避免test task执行失败
@@ -127,7 +126,8 @@ subprojects{
     }
 
     dependencies{
-        compile group: "cn.thinkjoy.common", name: "thinkjoy-biz-common", version: "0.0.2-SNAPSHOT", changing: true
+        //都会依赖bizcommon
+        compile group: "cn.thinkjoy.common", name: "thinkjoy-biz-common", version: "$thinkjoyCommonVersion", changing: true
     }
 }
 
