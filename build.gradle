@@ -123,6 +123,8 @@ subprojects{
 
         all*.exclude group: 'org.springframework', module: 'spring'
         all*.exclude group: 'asm', module: 'asm'
+        //排除log4j桥接，只允许使用logback
+        all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
     }
 
     dependencies{
