@@ -28,5 +28,21 @@
             </if>
         </where>
     </select>
+
+    <!-- 根据用户所在数据组获取其对应的数据id集合 -->
+    <select id="getDataByPerm" resultType="DatagroupData">
+        select mdgd.* from mubs_datagroup_data mdgd
+        inner join mubs_user_datagroup mudg on mudg.datagroupId = mdgd.datagroupId
+
+        <where>
+            <if test="condition.userId != null">
+                and mudg.userId in (#{condition.userId})
+            </if>
+
+            <if test="condition.dataModelId != null">
+                and mdgd.dataModelId in (#{condition.dataModelId})
+            </if>
+        </where>
+    </select>
 </mapper>
 

@@ -1,5 +1,3 @@
-##   以下为权限、页面相关数据表结构
-
 # ************************************************************
 # Sequel Pro SQL dump
 # Version 4096
@@ -9,7 +7,7 @@
 #
 # Host: 172.16.120.111 (MySQL 5.5.34-0ubuntu0.13.04.1)
 # Database: mubs
-# Generation Time: 2014-10-03 08:29:30 +0000
+# Generation Time: 2014-11-19 04:47:31 +0000
 # ************************************************************
 
 
@@ -24,8 +22,6 @@
 
 # Dump of table mubs_data_model
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `mubs_data_model`;
 
 CREATE TABLE `mubs_data_model` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
@@ -42,12 +38,42 @@ CREATE TABLE `mubs_data_model` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据权限模型|数据权限设置|基础管理|CreateBaseDomain\n数据权限model';
 
-LOCK TABLES `mubs_data_model` WRITE;
-/*!40000 ALTER TABLE `mubs_data_model` DISABLE KEYS */;
 
 
-/*!40000 ALTER TABLE `mubs_data_model` ENABLE KEYS */;
-UNLOCK TABLES;
+# Dump of table mubs_datagroup
+# ------------------------------------------------------------
+
+CREATE TABLE `mubs_datagroup` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(16) NOT NULL DEFAULT '' COMMENT '名称',
+  `number` varchar(16) NOT NULL DEFAULT '' COMMENT '编码',
+  `description` varchar(64) NOT NULL DEFAULT '' COMMENT '描述',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `creator` int(11) NOT NULL COMMENT '创建人',
+  `createDate` bigint(11) NOT NULL COMMENT '创建时间',
+  `lastModifier` int(11) NOT NULL COMMENT '修改人',
+  `lastModDate` bigint(11) NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据组|数据组管理|基础管理|CreateBaseDomain\n数据组';
+
+
+
+# Dump of table mubs_datagroup_data
+# ------------------------------------------------------------
+
+CREATE TABLE `mubs_datagroup_data` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `creator` int(11) NOT NULL COMMENT '创建人',
+  `createDate` bigint(11) NOT NULL COMMENT '创建时间',
+  `lastModifier` int(11) NOT NULL COMMENT '修改人',
+  `lastModDate` bigint(11) NOT NULL COMMENT '修改时间',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `dataModelId` int(11) NOT NULL COMMENT '数据权限model id',
+  `dataId` int(11) NOT NULL COMMENT '对应id',
+  `groupId` int(11) NOT NULL COMMENT '数据组id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据组数据|数据组分配|基础管理|CreateBaseDomain\n数据组数据，数据组和数据的对应关系';
+
 
 
 # Dump of table mubs_model
@@ -68,7 +94,6 @@ CREATE TABLE `mubs_model` (
 
 LOCK TABLES `mubs_model` WRITE;
 /*!40000 ALTER TABLE `mubs_model` DISABLE KEYS */;
-
 
 
 /*!40000 ALTER TABLE `mubs_model` ENABLE KEYS */;
@@ -100,7 +125,6 @@ LOCK TABLES `mubs_resource` WRITE;
 /*!40000 ALTER TABLE `mubs_resource` DISABLE KEYS */;
 
 
-
 /*!40000 ALTER TABLE `mubs_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,8 +149,6 @@ CREATE TABLE `mubs_resource_action` (
 
 LOCK TABLES `mubs_resource_action` WRITE;
 /*!40000 ALTER TABLE `mubs_resource_action` DISABLE KEYS */;
-
-
 
 /*!40000 ALTER TABLE `mubs_resource_action` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -158,6 +180,7 @@ CREATE TABLE `mubs_resource_grid` (
 LOCK TABLES `mubs_resource_grid` WRITE;
 /*!40000 ALTER TABLE `mubs_resource_grid` DISABLE KEYS */;
 
+
 /*!40000 ALTER TABLE `mubs_resource_grid` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +201,6 @@ CREATE TABLE `mubs_role` (
 
 LOCK TABLES `mubs_role` WRITE;
 /*!40000 ALTER TABLE `mubs_role` DISABLE KEYS */;
-
 
 
 /*!40000 ALTER TABLE `mubs_role` ENABLE KEYS */;
@@ -229,34 +251,50 @@ LOCK TABLES `mubs_role_user` WRITE;
 /*!40000 ALTER TABLE `mubs_role_user` DISABLE KEYS */;
 
 
-
 /*!40000 ALTER TABLE `mubs_role_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table mubs_user_data
+# Dump of table mubs_user
 # ------------------------------------------------------------
 
-CREATE TABLE `mubs_user_data` (
+CREATE TABLE `mubs_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `isAdmin` int(11) NOT NULL COMMENT '是否管理类用户 1 是，0 否',
+  `name` varchar(16) NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码,SHA加密',
+  `employeeId` int(11) DEFAULT NULL COMMENT '员工id',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `creator` int(11) NOT NULL COMMENT '创建人',
+  `createDate` bigint(11) NOT NULL COMMENT '创建时间',
+  `lastModDate` bigint(11) NOT NULL COMMENT '修改时间',
+  `lastModifier` int(11) NOT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户|用户管理|基础管理|CreateBaseDomain\n用户';
+
+LOCK TABLES `mubs_user` WRITE;
+/*!40000 ALTER TABLE `mubs_user` DISABLE KEYS */;
+
+
+/*!40000 ALTER TABLE `mubs_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table mubs_user_datagroup
+# ------------------------------------------------------------
+
+CREATE TABLE `mubs_user_datagroup` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `creator` int(11) NOT NULL COMMENT '创建人',
   `createDate` bigint(11) NOT NULL COMMENT '创建时间',
   `lastModifier` int(11) NOT NULL COMMENT '修改人',
   `lastModDate` bigint(11) NOT NULL COMMENT '修改时间',
   `status` tinyint(4) NOT NULL COMMENT '状态',
-  `dataModelId` int(11) NOT NULL COMMENT '数据权限model id',
-  `dataId` int(11) NOT NULL COMMENT '对应id',
+  `datagroupId` int(11) NOT NULL COMMENT '数据组id',
   `userId` int(11) NOT NULL COMMENT '用户id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户数据权限|用户数据权限分配|基础管理|CreateBaseDomain\n用户管理数据权限';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户数据组|用户数据组分配|基础管理|CreateBaseDomain\n用户和数据组对应关系';
 
-LOCK TABLES `mubs_user_data` WRITE;
-/*!40000 ALTER TABLE `mubs_user_data` DISABLE KEYS */;
-
-
-
-/*!40000 ALTER TABLE `mubs_user_data` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
