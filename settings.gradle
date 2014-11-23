@@ -6,5 +6,5 @@ include 'mubs-api'
 
 include 'mubs-service'
 
-include 'mubs-war'
+include 'mubs-admin-war'
 

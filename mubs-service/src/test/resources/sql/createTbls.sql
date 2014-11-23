@@ -255,29 +255,6 @@ LOCK TABLES `mubs_role_user` WRITE;
 UNLOCK TABLES;
 
 
-# Dump of table mubs_user
-# ------------------------------------------------------------
-
-CREATE TABLE `mubs_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `isAdmin` int(11) NOT NULL COMMENT '是否管理类用户 1 是，0 否',
-  `name` varchar(16) NOT NULL DEFAULT '' COMMENT '用户名',
-  `password` varchar(64) NOT NULL DEFAULT '' COMMENT '密码,SHA加密',
-  `employeeId` int(11) DEFAULT NULL COMMENT '员工id',
-  `status` tinyint(4) NOT NULL COMMENT '状态',
-  `creator` int(11) NOT NULL COMMENT '创建人',
-  `createDate` bigint(11) NOT NULL COMMENT '创建时间',
-  `lastModDate` bigint(11) NOT NULL COMMENT '修改时间',
-  `lastModifier` int(11) NOT NULL COMMENT '修改人',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户|用户管理|基础管理|CreateBaseDomain\n用户';
-
-LOCK TABLES `mubs_user` WRITE;
-/*!40000 ALTER TABLE `mubs_user` DISABLE KEYS */;
-
-
-/*!40000 ALTER TABLE `mubs_user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table mubs_user_datagroup

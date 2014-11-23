@@ -52,54 +52,43 @@ jQuery(function($) {
     jQuery(grid_selector).jqGrid({
         //direction: "rtl",
         url: '/admin/${bizSys}/${mainObj}s',
-        //subgrid options
-        //subGrid : true,
-        //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
-        //datatype: "xml",
-//        subGridOptions : {
-//            plusicon : "ace-icon fa fa-plus center bigger-110 blue",
-//            minusicon  : "ace-icon fa fa-minus center bigger-110 blue",
-//            openicon : "ace-icon fa fa-chevron-right center orange"
-//        },
-        //for this example we are using local data
-//        subGridRowExpanded: function (subgridDivId, rowId) {
-//            var subgridTableId = subgridDivId + "_t";
-//            $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-//            $("#" + subgridTableId).jqGrid({
-//                datatype: 'local',
-//                //data: subgrid_data,
-//                colNames: ['No','Item Name','Qty'],
-//                colModel: [
-//                    { name: 'id', width: 50 },
-//                    { name: 'name', width: 150 },
-//                    { name: 'qty', width: 50 }
-//                ]
-//            });
-//        },
 
-
-
-        //data: grid_data,
         datatype: "json",
-        loadComplete:function(data){ //完成服务器请求后，回调函数
-            if(data.records==0){ //如果没有记录返回，追加提示信息，删除按钮不可用
-                $("p").appendTo($("#list")).addClass("nodata").html('找不到相关数据！');
-                $("#del_btn").attr("disabled",true);
-            }else{ //否则，删除提示，删除按钮可用
-                $("p.nodata").remove();
-                $("#del_btn").removeAttr("disabled");
+        //json格式处理，集成统一协议格式
+        jsonReader: {
+            root: "bizData.rows",
+            page: "bizData.page",
+            total: "bizData.total",
+            records: "bizData.records",
+            id: "ID"
+        },
+        //根据统一协议格式做处理
+        beforeProcessing: function (data) {
+            if("000000" != data.rtnCode){
+                //TODO
+                alert("请求远程数据失败！" + data.msg)
             }
+        },
+        loadComplete:function(data){ //完成服务器请求后，回调函数
+            var table = this;
+            setTimeout(function(){
+                styleCheckbox(table);
+
+                updateActionIcons(table);
+                updatePagerIcons(table);
+                enableTooltips(table);
+            }, 0);
         },
         height: 250,
 
-    colNames:[//' ',
-        <#list cols as col>
-            '${col.displayName}'
-            <#if col_has_next>
-                   ,
-            </#if>
-        </#list>
-    ],
+        colNames:[//' ',
+            <#list cols as col>
+                '${col.displayName}'
+                <#if col_has_next>
+                       ,
+                </#if>
+            </#list>
+        ],
 
         //colNames:[' ', 'ID','名称','编码', '父组织', '长编码','顺序','描述','负责人'],
         colModel:[
@@ -132,17 +121,6 @@ jQuery(function($) {
         multiselect: true,
         //multikey: "ctrlKey",
         multiboxonly: true,
-
-        loadComplete : function() {
-            var table = this;
-            setTimeout(function(){
-                styleCheckbox(table);
-
-                updateActionIcons(table);
-                updatePagerIcons(table);
-                enableTooltips(table);
-            }, 0);
-        },
 
         editurl: "/admin/${bizSys}/commonsave/${mainObj}",//nothing is saved
         <#--delurl: "/admin/commondel/${mainObj}",//nothing is saved-->
