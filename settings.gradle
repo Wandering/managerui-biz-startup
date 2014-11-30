@@ -8,3 +8,5 @@ include 'mubs-service'
 
 include 'mubs-admin-war'
 
+include 'mubs-web-war'
+
