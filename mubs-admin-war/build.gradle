@@ -5,6 +5,5 @@ dependencies {
 
     compile group: "cn.thinkjoy.common", name: "thinkjoy-mu-common", version: "$thinkjoyCommonVersion", changing: true
 
-    compile project(':mubs-api')
     compile project(':mubs-service')
 }
