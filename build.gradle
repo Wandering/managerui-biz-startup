@@ -128,8 +128,8 @@ subprojects{
     }
 
     dependencies{
-        //都会依赖bizcommon
-        compile group: "cn.thinkjoy.common", name: "thinkjoy-biz-common", version: "$thinkjoyCommonVersion", changing: true
+        //都会依赖domain
+        compile group: "cn.thinkjoy.common", name: "thinkjoy-domain-common", version: "$thinkjoyCommonVersion", changing: true
     }
 }
 
