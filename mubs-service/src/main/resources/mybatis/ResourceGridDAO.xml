@@ -575,7 +575,7 @@ selectList
                 AND moduleName = #{moduleName}
             </if>
         </trim>
-        ORDER BY ${orderBy} ${sortBy}
+        ORDER BY orderNum
     </select>
 
     <select id="queryOne" parameterType="java.util.Map" resultType="ResourceGrid">
