@@ -1,1 +1,0 @@
-package cn.thinkjoy.mubs.controller;

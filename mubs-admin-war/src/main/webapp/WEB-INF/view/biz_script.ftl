@@ -1,9 +1,8 @@
-
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='../../assets/js/jquery.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='../../assets/js/jquery.min.js'>" + "<" + "/script>");
 </script>
 
 <!-- <![endif]-->
@@ -14,7 +13,7 @@
 </script>
 <![endif]-->
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='../../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if ('ontouchstart' in document.documentElement) document.write("<script src='../../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 </script>
 <script src="../../assets/js/bootstrap.min.js"></script>
 
@@ -27,26 +26,36 @@
 <!-- ace scripts -->
 <script src="../../assets/js/ace-elements.min.js"></script>
 <script src="../../assets/js/ace.min.js"></script>
+<script src="../../assets/js/fuelux/jquery.ztree.core-3.5.min.js"></script>
+<script src="../../assets/js/fuelux/jquery.ztree.excheck-3.5.min.js"></script>
+
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
-jQuery(function($) {
+jQuery(function ($) {
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    var currentGridId;
+    var dataId;
 
     //resize to fit page size
     $(window).on('resize.jqGrid', function () {
-        $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );
+        $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
     })
     //resize on sidebar collapse/expand
     var parent_column = $(grid_selector).closest('[class*="col-"]');
-    $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
-        if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
-            $(grid_selector).jqGrid( 'setGridWidth', parent_column.width() );
+    $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
+        if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
+            $(grid_selector).jqGrid('setGridWidth', parent_column.width());
         }
     })
 
+    $(".close-btn").click(function () {
+        var $this = $(this);
+        var pt = $this.closest(".treeFixed");
+        pt.hide();
+    });
 
 
     jQuery(grid_selector).jqGrid({
@@ -60,18 +69,18 @@ jQuery(function($) {
             page: "bizData.page",
             total: "bizData.total",
             records: "bizData.records",
-            id: "ID"
+            id: "id"
         },
         //根据统一协议格式做处理
         beforeProcessing: function (data) {
-            if("000000" != data.rtnCode){
+            if ("000000" != data.rtnCode) {
                 //TODO
                 alert("请求远程数据失败！" + data.msg)
             }
         },
-        loadComplete:function(data){ //完成服务器请求后，回调函数
+        loadComplete: function (data) { //完成服务器请求后，回调函数
             var table = this;
-            setTimeout(function(){
+            setTimeout(function () {
                 styleCheckbox(table);
 
                 updateActionIcons(table);
@@ -81,17 +90,17 @@ jQuery(function($) {
         },
         height: 250,
 
-        colNames:[//' ',
-            <#list cols as col>
-                '${col.displayName}'
-                <#if col_has_next>
-                       ,
-                </#if>
-            </#list>
+        colNames: [//' ',
+        <#list cols as col>
+            '${col.displayName}'
+            <#if col_has_next>
+                ,
+            </#if>
+        </#list>
         ],
 
         //colNames:[' ', 'ID','名称','编码', '父组织', '长编码','顺序','描述','负责人'],
-        colModel:[
+        colModel: [
 //            {name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
 //                formatter:'actions',
 //                formatoptions:{
@@ -102,19 +111,19 @@ jQuery(function($) {
 //                }
 //            },
 
-            <#list cols as col>
-                {name:'${col.colId}',index:'${col.colId}', width:${col.width}, sortable:false,editable: true,edittype:"${col.edittype}", editoptions:${col.editoptions}}
+        <#list cols as col>
+            {name: '${col.colId}', index: '${col.colId}', width:${col.width}, sortable: false, editable: true, edittype: "${col.edittype}", editoptions:${col.editoptions}}
 
-                <#if col_has_next>
-                    ,
-                </#if>
-            </#list>
+            <#if col_has_next>
+                ,
+            </#if>
+        </#list>
         ],
 
-        viewrecords : true,
-        rowNum:10,
-        rowList:[10,20,30],
-        pager : pager_selector,
+        viewrecords: true,
+        rowNum: 10,
+        rowList: [10, 20, 30],
+        pager: pager_selector,
         altRows: true,
         //toppager: true,
 
@@ -123,28 +132,28 @@ jQuery(function($) {
         multiboxonly: true,
 
         editurl: "/admin/${bizSys}/commonsave/${mainObj}",//nothing is saved
-        <#--delurl: "/admin/commondel/${mainObj}",//nothing is saved-->
-        <#--addurl: "/admin/commonadd/${mainObj}",//nothing is saved-->
-        caption: "${title}"
-
-        //,autowidth: true,title
+    <#--delurl: "/admin/commondel/${mainObj}",//nothing is saved-->
+    <#--addurl: "/admin/commonadd/${mainObj}",//nothing is saved-->
+        caption: "${title}",
 
 
-        /**
-         ,
-         grouping:true,
-         groupingView : {
-						 groupField : ['name'],
-						 groupDataSorted : true,
-						 plusicon : 'fa fa-chevron-down bigger-110',
-						 minusicon : 'fa fa-chevron-up bigger-110'
-					},
-         caption: "Grouping"
-         */
+//        获取选中行的业务数据ID
+        onSelectRow: function (id, status) {
+            //当前行id
+            if (status) {
+                currentGridId = id;
+                var rowDatas = $("#grid-table").jqGrid('getRowData', id);
+                dataId = rowDatas.id;
+            }
+            else {
+                currentGridId = null;
+                dataId = null;
+            }
+        }
+
 
     });
     $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-
 
 
     //enable search/filter toolbar
@@ -153,149 +162,177 @@ jQuery(function($) {
 
 
     //switch element when editing inline
-    function aceSwitch( cellvalue, options, cell ) {
-        setTimeout(function(){
-            $(cell) .find('input[type=checkbox]')
+    function aceSwitch(cellvalue, options, cell) {
+        setTimeout(function () {
+            $(cell).find('input[type=checkbox]')
                     .addClass('ace ace-switch ace-switch-5')
                     .after('<span class="lbl"></span>');
         }, 0);
     }
+
     //enable datepicker
-    function pickDate( cellvalue, options, cell ) {
-        setTimeout(function(){
-            $(cell) .find('input[type=text]')
-                    .datepicker({format:'yyyy-mm-dd' , autoclose:true});
+    function pickDate(cellvalue, options, cell) {
+        setTimeout(function () {
+            $(cell).find('input[type=text]')
+                    .datepicker({format: 'yyyy-mm-dd', autoclose: true});
         }, 0);
     }
 
 
     //navButtons
-    jQuery(grid_selector).jqGrid('navGrid',pager_selector,
-            { 	//navbar options
-                edit: ${actions?seq_contains("edit")?string("true", "false")}, //决定是否显示true
-                editicon : 'ace-icon fa fa-pencil blue',
-                add: ${actions?seq_contains("add")?string("true", "false")},
-                addicon : 'ace-icon fa fa-plus-circle purple',
-                del: ${actions?seq_contains("del")?string("true", "false")},
-                delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
-                searchicon : 'ace-icon fa fa-search orange',
-                refresh: true,
-                refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
-                viewicon : 'ace-icon fa fa-search-plus grey'
-            },
-            {
-                //edit record form
-                //closeAfterEdit: true,
-                width: 700,
-                recreateForm: true,
-                beforeShowForm : function(e) {
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                    style_edit_form(form);
-                }
-            },
-            {
-                //new record form
-                //width: 700,
-                closeAfterAdd: true,
-                recreateForm: true,
-                viewPagerButtons: false,
-                beforeShowForm : function(e) {
-                    var form = $(e[0]);
-                    console.log(form);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
-                            .wrapInner('<div class="widget-header" />')
-                    style_edit_form(form);
-                }
-            },
-            {
-                //delete record form
-                recreateForm: true,
-                <#--url:"/admin/commondel/${mainObj}",-->
-                beforeShowForm : function(e) {
-                    var form = $(e[0]);
-                    console.log(form);
-                    if(form.data('styled')) return false;
-
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                    style_delete_form(form);
-
-                    form.data('styled', true);
+        jQuery(grid_selector).jqGrid('navGrid', pager_selector,
+                { 	//navbar options
+                    edit: ${actions?seq_contains("edit")?string("true", "false")}, //决定是否显示true
+                    editicon: 'ace-icon fa fa-pencil blue',
+                    add: ${actions?seq_contains("add")?string("true", "false")},
+                    addicon: 'ace-icon fa fa-plus-circle purple',
+                    del: ${actions?seq_contains("del")?string("true", "false")},
+                    delicon: 'ace-icon fa fa-trash-o red',
+                    search: true,
+                    searchicon: 'ace-icon fa fa-search orange',
+                    refresh: true,
+                    refreshicon: 'ace-icon fa fa-refresh green',
+                    view: true,
+                    viewicon: 'ace-icon fa fa-search-plus grey'
                 },
-                onClick : function(e) {
-                    alert(1);
-                }
-            },
-            {
-                //search form
-                recreateForm: true,
-                afterShowSearch: function(e){
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                    style_search_form(form);
+                {
+                    //edit record form
+                    //closeAfterEdit: true,
+                    width: 700,
+                    recreateForm: true,
+                    beforeShowForm: function (e) {
+                        var form = $(e[0]);
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+                        style_edit_form(form);
+                    }
                 },
-                afterRedraw: function(){
-                    style_search_filters($(this));
+                {
+                    //new record form
+                    //width: 700,
+                    closeAfterAdd: true,
+                    recreateForm: true,
+                    viewPagerButtons: false,
+                    beforeShowForm: function (e) {
+                        var form = $(e[0]);
+                        console.log(form);
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
+                                .wrapInner('<div class="widget-header" />')
+                        style_edit_form(form);
+                    }
+                },
+                {
+                    //delete record form
+                    recreateForm: true,
+                    //由于重写了用户删除业务，所以这里需要重写删除url
+                <#if mainObj == 'user'>
+                    url: "/admin/${bizSys}/commondel/${mainObj}",//nothing is saved-->
+                </#if>
+
+                    beforeShowForm: function (e) {
+                        var form = $(e[0]);
+                        console.log(form);
+                        if (form.data('styled')) return false;
+
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+                        style_delete_form(form);
+
+                        form.data('styled', true);
+                    },
+                    onClick: function (e) {
+                        alert(1);
+                    }
+                },
+                {
+                    //search form
+                    recreateForm: true,
+                    afterShowSearch: function (e) {
+                        var form = $(e[0]);
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                        style_search_form(form);
+                    },
+                    afterRedraw: function () {
+                        style_search_filters($(this));
+                    },
+                    multipleSearch: true,
+                    /**
+                     multipleGroup:true,
+                     showQuery: true
+                     */
+                },
+                {
+                    //view record form
+                    recreateForm: true,
+                    beforeShowForm: function (e) {
+                        var form = $(e[0]);
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                    }
                 }
                 ,
-                multipleSearch: true,
-                /**
-                 multipleGroup:true,
-                 showQuery: true
-                 */
+                {
+                    //import record form
+                    recreateForm: true,
+                    beforeShowForm: function (e) {
+                        var form = $(e[0]);
+                        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+                    }
+                }
+        )
+
+<#if actions?seq_contains("import")>
+        .navButtonAdd(pager_selector, {
+            id: "import-action",
+            title: "Import Records",
+            caption: "",
+            buttonicon: "ace-icon fa fa-search-plus grey",
+            onClickButton: function () {
+                alert("Deleting Row");
             },
-            {
-                //view record form
-                recreateForm: true,
-                beforeShowForm: function(e){
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                }
-            }
-            ,
-            {
-                //import record form
-                recreateForm: true,
-                beforeShowForm: function(e){
-                    var form = $(e[0]);
-                    form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                }
-            }
-    )
+            position: "last"
+        })
+</#if>
 
-    <#if actions?seq_contains("import")>
-            .navButtonAdd(pager_selector,{
-                id:"import-action",
-                title:"Import Records",
-                caption:"",
-                buttonicon:"ace-icon fa fa-search-plus grey",
-                onClickButton: function(){
-                    alert("Deleting Row");
-                },
-                position:"last"
-            })
-    </#if>
+<#if actions?seq_contains("export")>
+        .navButtonAdd(pager_selector, {
+            id: "export-action",
+            title: "Export template",
+            caption: "",
+            buttonicon: "ace-icon fa fa-search-plus grey",
+            onClickButton: function () {
+                alert("Deleting Row");
+            },
+            position: "last"
+        })
+</#if>
 
-    <#if actions?seq_contains("export")>
-            .navButtonAdd(pager_selector,{
-                id:"export-action",
-                title:"Export template",
-                caption:"",
-                buttonicon:"ace-icon fa fa-search-plus grey",
-                onClickButton: function(){
-                    alert("Deleting Row");
-                },
-                position:"last"
-            })
-    </#if>
+
+<#if actions?seq_contains("resource_assign")>
+        .navButtonAdd(pager_selector, {
+            id: "add-resource-action",
+            title: "分配资源",
+            caption: "",
+            buttonicon: "ace-icon fa fa-pencil blue",
+            onClickButton: <#include "role_source_assign.ftl">,
+            position: "last"
+        })
+</#if>
+
+<#if actions?seq_contains("role_assign")>
+        .navButtonAdd(pager_selector, {
+            id: "add-role-action",
+            title: "分配角色",
+            caption: "",
+            buttonicon: "ace-icon fa fa-flag bigger-120",
+            onClickButton: <#include "user_role_assign.ftl">,
+            position: "last"
+        })
+</#if>
+
 
 
 
     function style_edit_form(form) {
         //enable datepicker on "sdate" field and switches for "stock" field
-        form.find('input[name=sdate]').datepicker({format:'yyyy-mm-dd' , autoclose:true})
+        form.find('input[name=sdate]').datepicker({format: 'yyyy-mm-dd', autoclose: true})
                 .end().find('input[name=stock]')
                 .addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
         //don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
@@ -326,6 +363,7 @@ jQuery(function($) {
         form.find('.add-group').addClass('btn btn-xs btn-success');
         form.find('.delete-group').addClass('btn btn-xs btn-danger');
     }
+
     function style_search_form(form) {
         var dialog = form.closest('.ui-jqdialog');
         var buttons = dialog.find('.EditTable')
@@ -336,7 +374,7 @@ jQuery(function($) {
 
     function beforeDeleteCallback(e) {
         var form = $(e[0]);
-        if(form.data('styled')) return false;
+        if (form.data('styled')) return false;
 
         form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
         style_delete_form(form);
@@ -349,7 +387,6 @@ jQuery(function($) {
         form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
         style_edit_form(form);
     }
-
 
 
     //it causes some flicker when reloading or navigating grid
@@ -392,22 +429,22 @@ jQuery(function($) {
     function updatePagerIcons(table) {
         var replacement =
         {
-            'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
-            'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
-            'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
-            'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+            'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+            'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+            'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+            'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
         };
-        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
             var icon = $(this);
             var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
 
-            if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+            if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
         })
     }
 
     function enableTooltips(table) {
-        $('.navtable .ui-pg-button').tooltip({container:'body'});
-        $(table).find('.ui-pg-div').tooltip({container:'body'});
+        $('.navtable .ui-pg-button').tooltip({container: 'body'});
+        $(table).find('.ui-pg-div').tooltip({container: 'body'});
     }
 
     //var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
@@ -416,8 +453,8 @@ jQuery(function($) {
 });
 </script>
 
-<link rel="stylesheet" href="../../assets/css/ace.onpage-help.css" />
-<link rel="stylesheet" href="../../docs/assets/js/themes/sunburst.css" />
+<link rel="stylesheet" href="../../assets/css/ace.onpage-help.css"/>
+<link rel="stylesheet" href="../../docs/assets/js/themes/sunburst.css"/>
 
 <script type="text/javascript"> ace.vars['base'] = '..'; </script>
 <script src="../../assets/js/ace/ace.onpage-help.js"></script>
