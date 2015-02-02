@@ -328,7 +328,16 @@ jQuery(function ($) {
 </#if>
 
 
-
+    <#if actions?seq_contains("resource_assign")>
+            .navButtonAdd(pager_selector, {
+                id: "add-resource-action",
+                title: "分配资源",
+                caption: "",
+                buttonicon: "ace-icon fa fa-pencil blue",
+                onClickButton: <#include "role_assign.ftl">,
+                position: "last"
+            })
+    </#if>
 
     function style_edit_form(form) {
         //enable datepicker on "sdate" field and switches for "stock" field
