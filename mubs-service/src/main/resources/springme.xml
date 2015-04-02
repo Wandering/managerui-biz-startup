@@ -89,7 +89,7 @@
         <property name="filters" value="stat"/>
     </bean>
 
-    <import resource="classpath:mubs-dubbo-consumer.xml"/>
-    <import resource="classpath:mubs-dubbo-provider.xml"/>
+    <import resource="classpath:dubbo/mubs-dubbo-consumer.xml"/>
+    <import resource="classpath:dubbo/mubs-dubbo-provider.xml"/>
 
 </beans>

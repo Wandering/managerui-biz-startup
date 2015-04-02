@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceActionDAO">
 <!--
@@ -38,7 +38,6 @@ selectList
     </sql>
     <insert id="insert" parameterType="ResourceAction">
         INSERT INTO mubs_resource_action (
-        id,
         resourceId,
         divId,
         actionScript,
@@ -50,7 +49,6 @@ selectList
         lastModDate,
         description
         ) VALUES (
-        #{id},
         #{resourceId},
         #{divId},
         #{actionScript},
@@ -62,6 +60,9 @@ selectList
         #{lastModDate},
         #{description}
         )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
     </insert>
 
     <!-- 更新 -->
@@ -215,7 +216,6 @@ selectList
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource_action (
-                id,
                 resourceId,
                 divId,
                 actionScript,
@@ -227,17 +227,16 @@ selectList
                 lastModDate,
                 description
         ) VALUES (
-                #{map.id},
-                #{map.resourceId},
-                #{map.divId},
-                #{map.actionScript},
-                #{map.name},
-                #{map.actionAlias},
-                #{map.creator},
-                #{map.createDate},
-                #{map.lastModifier},
-                #{map.lastModDate},
-                #{map.description}
+                    #{map.resourceId},
+                    #{map.divId},
+                    #{map.actionScript},
+                    #{map.name},
+                    #{map.actionAlias},
+                    #{map.creator},
+                    #{map.createDate},
+                    #{map.lastModifier},
+                    #{map.lastModDate},
+                    #{map.description}
         )
     </insert>
 
@@ -327,6 +326,9 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_action WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
         LIMIT 0,1
     </select>
 
@@ -335,12 +337,18 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_action WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="findAll" resultType="ResourceAction">
         SELECT
         <include refid="Base_Column_List" />
         FROM mubs_resource_action
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryPage" resultType="ResourceAction">
@@ -352,8 +360,46 @@ selectList
             <if test="condition.whereSql != null">
                 and id in (#{condition.whereSql})
             </if>
-        </where>
 
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.resourceId!=null">
+                ${condition.groupOp}   resourceId  ${condition.resourceId.op}  #{condition.resourceId.data}
+            </if>
+            <if test="condition.divId!=null">
+                ${condition.groupOp}   divId  ${condition.divId.op}  #{condition.divId.data}
+            </if>
+            <if test="condition.actionScript!=null">
+                ${condition.groupOp}   actionScript  ${condition.actionScript.op}  #{condition.actionScript.data}
+            </if>
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
+            </if>
+            <if test="condition.actionAlias!=null">
+                ${condition.groupOp}   actionAlias  ${condition.actionAlias.op}  #{condition.actionAlias.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.description!=null">
+                ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
+            </if>
+
+
+    </where>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
         </if>
@@ -364,40 +410,43 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_action
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id like '%#{id}%'
+            <if test="condition.id!=null">
+                AND id like CONCAT('%', #{condition.id} , '%')
             </if>
-            <if test="resourceId!=null">
-                AND resourceId like '%#{resourceId}%'
+            <if test="condition.resourceId!=null">
+                AND resourceId like CONCAT('%', #{condition.resourceId} , '%')
             </if>
-            <if test="divId!=null">
-                AND divId like '%#{divId}%'
+            <if test="condition.divId!=null">
+                AND divId like CONCAT('%', #{condition.divId} , '%')
             </if>
-            <if test="actionScript!=null">
-                AND actionScript like '%#{actionScript}%'
+            <if test="condition.actionScript!=null">
+                AND actionScript like CONCAT('%', #{condition.actionScript} , '%')
             </if>
-            <if test="name!=null">
-                AND name like '%#{name}%'
+            <if test="condition.name!=null">
+                AND name like CONCAT('%', #{condition.name} , '%')
             </if>
-            <if test="actionAlias!=null">
-                AND actionAlias like '%#{actionAlias}%'
+            <if test="condition.actionAlias!=null">
+                AND actionAlias like CONCAT('%', #{condition.actionAlias} , '%')
             </if>
-            <if test="creator!=null">
-                AND creator like '%#{creator}%'
+            <if test="condition.creator!=null">
+                AND creator like CONCAT('%', #{condition.creator} , '%')
             </if>
-            <if test="createDate!=null">
-                AND createDate like '%#{createDate}%'
+            <if test="condition.createDate!=null">
+                AND createDate like CONCAT('%', #{condition.createDate} , '%')
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier like '%#{lastModifier}%'
+            <if test="condition.lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{condition.lastModifier} , '%')
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate like '%#{lastModDate}%'
+            <if test="condition.lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{condition.lastModDate} , '%')
             </if>
-            <if test="description!=null">
-                AND description like '%#{description}%'
+            <if test="condition.description!=null">
+                AND description like CONCAT('%', #{condition.description} , '%')
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
 
@@ -406,41 +455,43 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_action
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="resourceId!=null">
-                AND resourceId = #{resourceId}
+            <if test="condition.resourceId!=null">
+                AND resourceId = #{condition.resourceId}
             </if>
-            <if test="divId!=null">
-                AND divId = #{divId}
+            <if test="condition.divId!=null">
+                AND divId = #{condition.divId}
             </if>
-            <if test="actionScript!=null">
-                AND actionScript = #{actionScript}
+            <if test="condition.actionScript!=null">
+                AND actionScript = #{condition.actionScript}
             </if>
-            <if test="name!=null">
-                AND name = #{name}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
-            <if test="actionAlias!=null">
-                AND actionAlias = #{actionAlias}
+            <if test="condition.actionAlias!=null">
+                AND actionAlias = #{condition.actionAlias}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
             </if>
         </trim>
+        <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryOne" parameterType="java.util.Map" resultType="ResourceAction">
@@ -448,45 +499,84 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_action
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="resourceId!=null">
-                AND resourceId = #{resourceId}
+            <if test="condition.resourceId!=null">
+                AND resourceId = #{condition.resourceId}
             </if>
-            <if test="divId!=null">
-                AND divId = #{divId}
+            <if test="condition.divId!=null">
+                AND divId = #{condition.divId}
             </if>
-            <if test="actionScript!=null">
-                AND actionScript = #{actionScript}
+            <if test="condition.actionScript!=null">
+                AND actionScript = #{condition.actionScript}
             </if>
-            <if test="name!=null">
-                AND name = #{name}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
-            <if test="actionAlias!=null">
-                AND actionAlias = #{actionAlias}
+            <if test="condition.actionAlias!=null">
+                AND actionAlias = #{condition.actionAlias}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         limit 0,1
     </select>
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(id) FROM mubs_resource_action
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="resourceId!=null">
+               ${groupOp} resourceId ${resourceId.op}  #{resourceId.data}
+           </if>
+           <if test="divId!=null">
+               ${groupOp} divId ${divId.op}  #{divId.data}
+           </if>
+           <if test="actionScript!=null">
+               ${groupOp} actionScript ${actionScript.op}  #{actionScript.data}
+           </if>
+           <if test="name!=null">
+               ${groupOp} name ${name.op}  #{name.data}
+           </if>
+           <if test="actionAlias!=null">
+               ${groupOp} actionAlias ${actionAlias.op}  #{actionAlias.data}
+           </if>
+           <if test="creator!=null">
+               ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
+           </if>
+           <if test="lastModifier!=null">
+               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+           </if>
+           <if test="lastModDate!=null">
+               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="description!=null">
+               ${groupOp} description ${description.op}  #{description.data}
+           </if>
+
+       </where>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Integer">

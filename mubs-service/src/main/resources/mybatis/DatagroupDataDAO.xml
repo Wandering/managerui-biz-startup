@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.thinkjoy.common.managerui.dao.IDataModelDAO">
+<mapper namespace="cn.thinkjoy.common.managerui.dao.IDatagroupDataDAO">
 <!--
 insert
 update
@@ -30,35 +30,29 @@ selectList
         lastModifier,
         lastModDate,
         status,
-        priority,
-        modelId,
-        assignUrl,
-        whereSql,
-        name
+        dataModelId,
+        dataId,
+        groupId
     </sql>
-    <insert id="insert" parameterType="DataModel">
-        INSERT INTO mubs_data_model (
+    <insert id="insert" parameterType="DatagroupData">
+        INSERT INTO mubs_datagroup_data (
         creator,
         createDate,
         lastModifier,
         lastModDate,
         status,
-        priority,
-        modelId,
-        assignUrl,
-        whereSql,
-        name
+        dataModelId,
+        dataId,
+        groupId
         ) VALUES (
         #{creator},
         #{createDate},
         #{lastModifier},
         #{lastModDate},
         #{status},
-        #{priority},
-        #{modelId},
-        #{assignUrl},
-        #{whereSql},
-        #{name}
+        #{dataModelId},
+        #{dataId},
+        #{groupId}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
         SELECT LAST_INSERT_ID() AS ID
@@ -66,8 +60,8 @@ selectList
     </insert>
 
     <!-- 更新 -->
-    <update id="update" parameterType="DataModel">
-        UPDATE mubs_data_model
+    <update id="update" parameterType="DatagroupData">
+        UPDATE mubs_datagroup_data
         <trim prefix="SET" suffixOverrides=",">
             <if test="creator!=null">
                 creator = #{creator},
@@ -84,20 +78,14 @@ selectList
             <if test="status!=null">
                 status = #{status},
             </if>
-            <if test="priority!=null">
-                priority = #{priority},
+            <if test="dataModelId!=null">
+                dataModelId = #{dataModelId},
             </if>
-            <if test="modelId!=null">
-                modelId = #{modelId},
+            <if test="dataId!=null">
+                dataId = #{dataId},
             </if>
-            <if test="assignUrl!=null">
-                assignUrl = #{assignUrl},
-            </if>
-            <if test="whereSql!=null">
-                whereSql = #{whereSql},
-            </if>
-            <if test="name!=null">
-                name = #{name},
+            <if test="groupId!=null">
+                groupId = #{groupId},
             </if>
         </trim>
         WHERE
@@ -105,7 +93,7 @@ selectList
     </update>
 
     <update id="updateMap">
-        UPDATE mubs_data_model
+        UPDATE mubs_datagroup_data
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -122,20 +110,14 @@ selectList
             <if test="map.status!=null">
                 status = #{map.status},
             </if>
-            <if test="map.priority!=null">
-                priority = #{map.priority},
+            <if test="map.dataModelId!=null">
+                dataModelId = #{map.dataModelId},
             </if>
-            <if test="map.modelId!=null">
-                modelId = #{map.modelId},
+            <if test="map.dataId!=null">
+                dataId = #{map.dataId},
             </if>
-            <if test="map.assignUrl!=null">
-                assignUrl = #{map.assignUrl},
-            </if>
-            <if test="map.whereSql!=null">
-                whereSql = #{map.whereSql},
-            </if>
-            <if test="map.name!=null">
-                name = #{map.name},
+            <if test="map.groupId!=null">
+                groupId = #{map.groupId},
             </if>
         </trim>
         WHERE
@@ -143,7 +125,7 @@ selectList
     </update>
 
     <update id="updateByCondition">
-        UPDATE mubs_data_model
+        UPDATE mubs_datagroup_data
         <trim prefix="SET" suffixOverrides=",">
             <if test="update.creator!=null">
                 creator = #{update.creator},
@@ -160,20 +142,14 @@ selectList
             <if test="update.status!=null">
                 status = #{update.status},
             </if>
-            <if test="update.priority!=null">
-                priority = #{update.priority},
+            <if test="update.dataModelId!=null">
+                dataModelId = #{update.dataModelId},
             </if>
-            <if test="update.modelId!=null">
-                modelId = #{update.modelId},
+            <if test="update.dataId!=null">
+                dataId = #{update.dataId},
             </if>
-            <if test="update.assignUrl!=null">
-                assignUrl = #{update.assignUrl},
-            </if>
-            <if test="update.whereSql!=null">
-                whereSql = #{update.whereSql},
-            </if>
-            <if test="update.name!=null">
-                name = #{update.name},
+            <if test="update.groupId!=null">
+                groupId = #{update.groupId},
             </if>
         </trim>
 
@@ -196,64 +172,52 @@ selectList
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
-            <if test="condition.priority!=null">
-                AND priority = #{condition.priority}
+            <if test="condition.dataModelId!=null">
+                AND dataModelId = #{condition.dataModelId}
             </if>
-            <if test="condition.modelId!=null">
-                AND modelId = #{condition.modelId}
+            <if test="condition.dataId!=null">
+                AND dataId = #{condition.dataId}
             </if>
-            <if test="condition.assignUrl!=null">
-                AND assignUrl = #{condition.assignUrl}
-            </if>
-            <if test="condition.whereSql!=null">
-                AND whereSql = #{condition.whereSql}
-            </if>
-            <if test="condition.name!=null">
-                AND name = #{condition.name}
+            <if test="condition.groupId!=null">
+                AND groupId = #{condition.groupId}
             </if>
         </trim>
     </update>
 
     <insert id="insertMap" >
-        INSERT INTO mubs_data_model (
+        INSERT INTO mubs_datagroup_data (
                 creator,
                 createDate,
                 lastModifier,
                 lastModDate,
                 status,
-                priority,
-                modelId,
-                assignUrl,
-                whereSql,
-                name
+                dataModelId,
+                dataId,
+                groupId
         ) VALUES (
                     #{map.creator},
                     #{map.createDate},
                     #{map.lastModifier},
                     #{map.lastModDate},
                     #{map.status},
-                    #{map.priority},
-                    #{map.modelId},
-                    #{map.assignUrl},
-                    #{map.whereSql},
-                    #{map.name}
+                    #{map.dataModelId},
+                    #{map.dataId},
+                    #{map.groupId}
         )
     </insert>
 
 
-    <update id="updateNull" parameterType="DataModel">
-        UPDATE mubs_data_model
+    <update id="updateNull" parameterType="DatagroupData">
+        UPDATE mubs_datagroup_data
         <trim prefix="SET" suffixOverrides=",">
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
             status = #{status},
-            priority = #{priority},
-            modelId = #{modelId},
-            assignUrl = #{assignUrl},
-            whereSql = #{whereSql},
-            name = #{name},
+            dataModelId = #{dataModelId},
+            dataId = #{dataId},
+            groupId = #{groupId},
         </trim>
         WHERE
         id = #{id} 
@@ -261,7 +225,7 @@ selectList
 
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Integer">
-        DELETE FROM mubs_data_model
+        DELETE FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
@@ -269,7 +233,7 @@ selectList
 
 
     <delete id="deleteByCondition" parameterType="java.util.Map">
-        DELETE FROM mubs_data_model
+        DELETE FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
                 AND id = #{id}
@@ -289,42 +253,36 @@ selectList
             <if test="status!=null">
                 AND status = #{status}
             </if>
-            <if test="priority!=null">
-                AND priority = #{priority}
+            <if test="dataModelId!=null">
+                AND dataModelId = #{dataModelId}
             </if>
-            <if test="modelId!=null">
-                AND modelId = #{modelId}
+            <if test="dataId!=null">
+                AND dataId = #{dataId}
             </if>
-            <if test="assignUrl!=null">
-                AND assignUrl = #{assignUrl}
-            </if>
-            <if test="whereSql!=null">
-                AND whereSql = #{whereSql}
-            </if>
-            <if test="name!=null">
-                AND name = #{name}
+            <if test="groupId!=null">
+                AND groupId = #{groupId}
             </if>
         </trim>
     </delete>
 
     <delete id="deleteByProperty" parameterType="java.util.Map">
-        DELETE FROM mubs_data_model WHERE
+        DELETE FROM mubs_datagroup_data WHERE
         ${property} = #{value}
     </delete>
 
-    <select id="fetch" parameterType="java.lang.Integer" resultType="DataModel">
+    <select id="fetch" parameterType="java.lang.Integer" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
     </select>
 
-    <select id="findOne" parameterType="java.util.Map" resultType="DataModel">
+    <select id="findOne" parameterType="java.util.Map" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model WHERE
+        FROM mubs_datagroup_data WHERE
         ${property} = #{value}
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
@@ -332,29 +290,29 @@ selectList
         LIMIT 0,1
     </select>
 
-    <select id="findList" parameterType="java.util.Map" resultType="DataModel">
+    <select id="findList" parameterType="java.util.Map" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model WHERE
+        FROM mubs_datagroup_data WHERE
         ${property} = #{value}
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
-    <select id="findAll" resultType="DataModel">
+    <select id="findAll" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
-    <select id="queryPage" resultType="DataModel">
+    <select id="queryPage" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <where>
 
             <if test="condition.whereSql != null">
@@ -379,20 +337,14 @@ selectList
             <if test="condition.status!=null">
                 ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
             </if>
-            <if test="condition.priority!=null">
-                ${condition.groupOp}   priority  ${condition.priority.op}  #{condition.priority.data}
+            <if test="condition.dataModelId!=null">
+                ${condition.groupOp}   dataModelId  ${condition.dataModelId.op}  #{condition.dataModelId.data}
             </if>
-            <if test="condition.modelId!=null">
-                ${condition.groupOp}   modelId  ${condition.modelId.op}  #{condition.modelId.data}
+            <if test="condition.dataId!=null">
+                ${condition.groupOp}   dataId  ${condition.dataId.op}  #{condition.dataId.data}
             </if>
-            <if test="condition.assignUrl!=null">
-                ${condition.groupOp}   assignUrl  ${condition.assignUrl.op}  #{condition.assignUrl.data}
-            </if>
-            <if test="condition.whereSql!=null">
-                ${condition.groupOp}   whereSql  ${condition.whereSql.op}  #{condition.whereSql.data}
-            </if>
-            <if test="condition.name!=null">
-                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
+            <if test="condition.groupId!=null">
+                ${condition.groupOp}   groupId  ${condition.groupId.op}  #{condition.groupId.data}
             </if>
 
 
@@ -405,10 +357,10 @@ selectList
         </if>
     </select>
 
-    <select id="like" parameterType="java.util.Map" resultType="DataModel">
+    <select id="like" parameterType="java.util.Map" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id like CONCAT('%', #{condition.id} , '%')
@@ -428,20 +380,14 @@ selectList
             <if test="condition.status!=null">
                 AND status like CONCAT('%', #{condition.status} , '%')
             </if>
-            <if test="condition.priority!=null">
-                AND priority like CONCAT('%', #{condition.priority} , '%')
+            <if test="condition.dataModelId!=null">
+                AND dataModelId like CONCAT('%', #{condition.dataModelId} , '%')
             </if>
-            <if test="condition.modelId!=null">
-                AND modelId like CONCAT('%', #{condition.modelId} , '%')
+            <if test="condition.dataId!=null">
+                AND dataId like CONCAT('%', #{condition.dataId} , '%')
             </if>
-            <if test="condition.assignUrl!=null">
-                AND assignUrl like CONCAT('%', #{condition.assignUrl} , '%')
-            </if>
-            <if test="condition.whereSql!=null">
-                AND whereSql like CONCAT('%', #{condition.whereSql} , '%')
-            </if>
-            <if test="condition.name!=null">
-                AND name like CONCAT('%', #{condition.name} , '%')
+            <if test="condition.groupId!=null">
+                AND groupId like CONCAT('%', #{condition.groupId} , '%')
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -450,10 +396,10 @@ selectList
     </select>
 
 
-    <select id="queryList" parameterType="java.util.Map" resultType="DataModel">
+    <select id="queryList" parameterType="java.util.Map" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -473,20 +419,14 @@ selectList
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
-            <if test="condition.priority!=null">
-                AND priority = #{condition.priority}
+            <if test="condition.dataModelId!=null">
+                AND dataModelId = #{condition.dataModelId}
             </if>
-            <if test="condition.modelId!=null">
-                AND modelId = #{condition.modelId}
+            <if test="condition.dataId!=null">
+                AND dataId = #{condition.dataId}
             </if>
-            <if test="condition.assignUrl!=null">
-                AND assignUrl = #{condition.assignUrl}
-            </if>
-            <if test="condition.whereSql!=null">
-                AND whereSql = #{condition.whereSql}
-            </if>
-            <if test="condition.name!=null">
-                AND name = #{condition.name}
+            <if test="condition.groupId!=null">
+                AND groupId = #{condition.groupId}
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -494,10 +434,10 @@ selectList
         </if>
     </select>
 
-    <select id="queryOne" parameterType="java.util.Map" resultType="DataModel">
+    <select id="queryOne" parameterType="java.util.Map" resultType="DatagroupData">
         SELECT
         <include refid="Base_Column_List" />
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -517,20 +457,14 @@ selectList
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
-            <if test="condition.priority!=null">
-                AND priority = #{condition.priority}
+            <if test="condition.dataModelId!=null">
+                AND dataModelId = #{condition.dataModelId}
             </if>
-            <if test="condition.modelId!=null">
-                AND modelId = #{condition.modelId}
+            <if test="condition.dataId!=null">
+                AND dataId = #{condition.dataId}
             </if>
-            <if test="condition.assignUrl!=null">
-                AND assignUrl = #{condition.assignUrl}
-            </if>
-            <if test="condition.whereSql!=null">
-                AND whereSql = #{condition.whereSql}
-            </if>
-            <if test="condition.name!=null">
-                AND name = #{condition.name}
+            <if test="condition.groupId!=null">
+                AND groupId = #{condition.groupId}
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -540,7 +474,7 @@ selectList
     </select>
 
     <select id="count" resultType="java.lang.Integer">
-        SELECT count(id) FROM mubs_data_model
+        SELECT count(id) FROM mubs_datagroup_data
        <where>
            <if test="id!=null">
                ${groupOp} id ${id.op}  #{id.data}
@@ -560,20 +494,14 @@ selectList
            <if test="status!=null">
                ${groupOp} status ${status.op}  #{status.data}
            </if>
-           <if test="priority!=null">
-               ${groupOp} priority ${priority.op}  #{priority.data}
+           <if test="dataModelId!=null">
+               ${groupOp} dataModelId ${dataModelId.op}  #{dataModelId.data}
            </if>
-           <if test="modelId!=null">
-               ${groupOp} modelId ${modelId.op}  #{modelId.data}
+           <if test="dataId!=null">
+               ${groupOp} dataId ${dataId.op}  #{dataId.data}
            </if>
-           <if test="assignUrl!=null">
-               ${groupOp} assignUrl ${assignUrl.op}  #{assignUrl.data}
-           </if>
-           <if test="whereSql!=null">
-               ${groupOp} whereSql ${whereSql.op}  #{whereSql.data}
-           </if>
-           <if test="name!=null">
-               ${groupOp} name ${name.op}  #{name.data}
+           <if test="groupId!=null">
+               ${groupOp} groupId ${groupId.op}  #{groupId.data}
            </if>
 
        </where>
@@ -582,7 +510,7 @@ selectList
     <select id="selectMaxId" resultType="java.lang.Integer">
         SELECT
         MAX(id)
-        FROM mubs_data_model
+        FROM mubs_datagroup_data
     </select>
 
 </mapper>

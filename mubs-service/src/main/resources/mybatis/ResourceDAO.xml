@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceDAO">
 <!--
@@ -41,7 +41,6 @@ selectList
     </sql>
     <insert id="insert" parameterType="Resource">
         INSERT INTO mubs_resource (
-        id,
         url,
         orderNum,
         parentId,
@@ -56,7 +55,6 @@ selectList
         modelId,
         bizModelName
         ) VALUES (
-        #{id},
         #{url},
         #{orderNum},
         #{parentId},
@@ -71,6 +69,9 @@ selectList
         #{modelId},
         #{bizModelName}
         )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
     </insert>
 
     <!-- 更新 -->
@@ -260,7 +261,6 @@ selectList
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource (
-                id,
                 url,
                 orderNum,
                 parentId,
@@ -275,20 +275,19 @@ selectList
                 modelId,
                 bizModelName
         ) VALUES (
-                #{map.id},
-                #{map.url},
-                #{map.orderNum},
-                #{map.parentId},
-                #{map.number},
-                #{map.longNumber},
-                #{map.name},
-                #{map.creator},
-                #{map.createDate},
-                #{map.lastModifier},
-                #{map.lastModDate},
-                #{map.description},
-                #{map.modelId},
-                #{map.bizModelName}
+                    #{map.url},
+                    #{map.orderNum},
+                    #{map.parentId},
+                    #{map.number},
+                    #{map.longNumber},
+                    #{map.name},
+                    #{map.creator},
+                    #{map.createDate},
+                    #{map.lastModifier},
+                    #{map.lastModDate},
+                    #{map.description},
+                    #{map.modelId},
+                    #{map.bizModelName}
         )
     </insert>
 
@@ -390,6 +389,9 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
         LIMIT 0,1
     </select>
 
@@ -398,12 +400,18 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="findAll" resultType="Resource">
         SELECT
         <include refid="Base_Column_List" />
         FROM mubs_resource
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryPage" resultType="Resource">
@@ -415,8 +423,55 @@ selectList
             <if test="condition.whereSql != null">
                 and id in (#{condition.whereSql})
             </if>
-        </where>
 
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.url!=null">
+                ${condition.groupOp}   url  ${condition.url.op}  #{condition.url.data}
+            </if>
+            <if test="condition.orderNum!=null">
+                ${condition.groupOp}   orderNum  ${condition.orderNum.op}  #{condition.orderNum.data}
+            </if>
+            <if test="condition.parentId!=null">
+                ${condition.groupOp}   parentId  ${condition.parentId.op}  #{condition.parentId.data}
+            </if>
+            <if test="condition.number!=null">
+                ${condition.groupOp}   number  ${condition.number.op}  #{condition.number.data}
+            </if>
+            <if test="condition.longNumber!=null">
+                ${condition.groupOp}   longNumber  ${condition.longNumber.op}  #{condition.longNumber.data}
+            </if>
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.description!=null">
+                ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
+            </if>
+            <if test="condition.modelId!=null">
+                ${condition.groupOp}   modelId  ${condition.modelId.op}  #{condition.modelId.data}
+            </if>
+            <if test="condition.bizModelName!=null">
+                ${condition.groupOp}   bizModelName  ${condition.bizModelName.op}  #{condition.bizModelName.data}
+            </if>
+
+
+    </where>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
         </if>
@@ -427,49 +482,52 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id like '%#{id}%'
+            <if test="condition.id!=null">
+                AND id like CONCAT('%', #{condition.id} , '%')
             </if>
-            <if test="url!=null">
-                AND url like '%#{url}%'
+            <if test="condition.url!=null">
+                AND url like CONCAT('%', #{condition.url} , '%')
             </if>
-            <if test="orderNum!=null">
-                AND orderNum like '%#{orderNum}%'
+            <if test="condition.orderNum!=null">
+                AND orderNum like CONCAT('%', #{condition.orderNum} , '%')
             </if>
-            <if test="parentId!=null">
-                AND parentId like '%#{parentId}%'
+            <if test="condition.parentId!=null">
+                AND parentId like CONCAT('%', #{condition.parentId} , '%')
             </if>
-            <if test="number!=null">
-                AND number like '%#{number}%'
+            <if test="condition.number!=null">
+                AND number like CONCAT('%', #{condition.number} , '%')
             </if>
-            <if test="longNumber!=null">
-                AND longNumber like '%#{longNumber}%'
+            <if test="condition.longNumber!=null">
+                AND longNumber like CONCAT('%', #{condition.longNumber} , '%')
             </if>
-            <if test="name!=null">
-                AND name like '%#{name}%'
+            <if test="condition.name!=null">
+                AND name like CONCAT('%', #{condition.name} , '%')
             </if>
-            <if test="creator!=null">
-                AND creator like '%#{creator}%'
+            <if test="condition.creator!=null">
+                AND creator like CONCAT('%', #{condition.creator} , '%')
             </if>
-            <if test="createDate!=null">
-                AND createDate like '%#{createDate}%'
+            <if test="condition.createDate!=null">
+                AND createDate like CONCAT('%', #{condition.createDate} , '%')
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier like '%#{lastModifier}%'
+            <if test="condition.lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{condition.lastModifier} , '%')
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate like '%#{lastModDate}%'
+            <if test="condition.lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{condition.lastModDate} , '%')
             </if>
-            <if test="description!=null">
-                AND description like '%#{description}%'
+            <if test="condition.description!=null">
+                AND description like CONCAT('%', #{condition.description} , '%')
             </if>
-            <if test="modelId!=null">
-                AND modelId like '%#{modelId}%'
+            <if test="condition.modelId!=null">
+                AND modelId like CONCAT('%', #{condition.modelId} , '%')
             </if>
-            <if test="bizModelName!=null">
-                AND bizModelName like '%#{bizModelName}%'
+            <if test="condition.bizModelName!=null">
+                AND bizModelName like CONCAT('%', #{condition.bizModelName} , '%')
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
 
@@ -478,50 +536,52 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="url!=null">
-                AND url = #{url}
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
             </if>
-            <if test="orderNum!=null">
-                AND orderNum = #{orderNum}
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
             </if>
-            <if test="parentId!=null">
-                AND parentId = #{parentId}
+            <if test="condition.parentId!=null">
+                AND parentId = #{condition.parentId}
             </if>
-            <if test="number!=null">
-                AND number = #{number}
+            <if test="condition.number!=null">
+                AND number = #{condition.number}
             </if>
-            <if test="longNumber!=null">
-                AND longNumber = #{longNumber}
+            <if test="condition.longNumber!=null">
+                AND longNumber = #{condition.longNumber}
             </if>
-            <if test="name!=null">
-                AND name = #{name}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
             </if>
-            <if test="modelId!=null">
-                AND modelId = #{modelId}
+            <if test="condition.modelId!=null">
+                AND modelId = #{condition.modelId}
             </if>
-            <if test="bizModelName!=null">
-                AND bizModelName = #{bizModelName}
+            <if test="condition.bizModelName!=null">
+                AND bizModelName = #{condition.bizModelName}
             </if>
         </trim>
+        <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryOne" parameterType="java.util.Map" resultType="Resource">
@@ -529,54 +589,102 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="url!=null">
-                AND url = #{url}
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
             </if>
-            <if test="orderNum!=null">
-                AND orderNum = #{orderNum}
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
             </if>
-            <if test="parentId!=null">
-                AND parentId = #{parentId}
+            <if test="condition.parentId!=null">
+                AND parentId = #{condition.parentId}
             </if>
-            <if test="number!=null">
-                AND number = #{number}
+            <if test="condition.number!=null">
+                AND number = #{condition.number}
             </if>
-            <if test="longNumber!=null">
-                AND longNumber = #{longNumber}
+            <if test="condition.longNumber!=null">
+                AND longNumber = #{condition.longNumber}
             </if>
-            <if test="name!=null">
-                AND name = #{name}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
             </if>
-            <if test="modelId!=null">
-                AND modelId = #{modelId}
+            <if test="condition.modelId!=null">
+                AND modelId = #{condition.modelId}
             </if>
-            <if test="bizModelName!=null">
-                AND bizModelName = #{bizModelName}
+            <if test="condition.bizModelName!=null">
+                AND bizModelName = #{condition.bizModelName}
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         limit 0,1
     </select>
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(id) FROM mubs_resource
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="url!=null">
+               ${groupOp} url ${url.op}  #{url.data}
+           </if>
+           <if test="orderNum!=null">
+               ${groupOp} orderNum ${orderNum.op}  #{orderNum.data}
+           </if>
+           <if test="parentId!=null">
+               ${groupOp} parentId ${parentId.op}  #{parentId.data}
+           </if>
+           <if test="number!=null">
+               ${groupOp} number ${number.op}  #{number.data}
+           </if>
+           <if test="longNumber!=null">
+               ${groupOp} longNumber ${longNumber.op}  #{longNumber.data}
+           </if>
+           <if test="name!=null">
+               ${groupOp} name ${name.op}  #{name.data}
+           </if>
+           <if test="creator!=null">
+               ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
+           </if>
+           <if test="lastModifier!=null">
+               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+           </if>
+           <if test="lastModDate!=null">
+               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="description!=null">
+               ${groupOp} description ${description.op}  #{description.data}
+           </if>
+           <if test="modelId!=null">
+               ${groupOp} modelId ${modelId.op}  #{modelId.data}
+           </if>
+           <if test="bizModelName!=null">
+               ${groupOp} bizModelName ${bizModelName.op}  #{bizModelName.data}
+           </if>
+
+       </where>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Integer">

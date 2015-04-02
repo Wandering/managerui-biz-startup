@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.thinkjoy.common.managerui.dao.IResourceGridDAO">
 <!--
@@ -35,15 +35,20 @@ selectList
         colId,
         orderNum,
         width,
-        editoptions,
         edittype,
+        editable,
+        editoptions,
+        editrules,
+        formatter,
+        formatoptions,
         unformat,
+        hide,
+        unedit,
         description,
         moduleName
     </sql>
     <insert id="insert" parameterType="ResourceGrid">
         INSERT INTO mubs_resource_grid (
-        id,
         creator,
         createDate,
         lastModifier,
@@ -54,13 +59,18 @@ selectList
         colId,
         orderNum,
         width,
-        editoptions,
         edittype,
+        editable,
+        editoptions,
+        editrules,
+        formatter,
+        formatoptions,
         unformat,
+        hide,
+        unedit,
         description,
         moduleName
         ) VALUES (
-        #{id},
         #{creator},
         #{createDate},
         #{lastModifier},
@@ -71,12 +81,21 @@ selectList
         #{colId},
         #{orderNum},
         #{width},
-        #{editoptions},
         #{edittype},
+        #{editable},
+        #{editoptions},
+        #{editrules},
+        #{formatter},
+        #{formatoptions},
         #{unformat},
+        #{hide},
+        #{unedit},
         #{description},
         #{moduleName}
         )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
     </insert>
 
     <!-- 更新 -->
@@ -113,14 +132,32 @@ selectList
             <if test="width!=null">
                 width = #{width},
             </if>
-            <if test="editoptions!=null">
-                editoptions = #{editoptions},
-            </if>
             <if test="edittype!=null">
                 edittype = #{edittype},
             </if>
+            <if test="editable!=null">
+                editable = #{editable},
+            </if>
+            <if test="editoptions!=null">
+                editoptions = #{editoptions},
+            </if>
+            <if test="editrules!=null">
+                editrules = #{editrules},
+            </if>
+            <if test="formatter!=null">
+                formatter = #{formatter},
+            </if>
+            <if test="formatoptions!=null">
+                formatoptions = #{formatoptions},
+            </if>
             <if test="unformat!=null">
                 unformat = #{unformat},
+            </if>
+            <if test="hide!=null">
+                hide = #{hide},
+            </if>
+            <if test="unedit!=null">
+                unedit = #{unedit},
             </if>
             <if test="description!=null">
                 description = #{description},
@@ -166,14 +203,32 @@ selectList
             <if test="map.width!=null">
                 width = #{map.width},
             </if>
-            <if test="map.editoptions!=null">
-                editoptions = #{map.editoptions},
-            </if>
             <if test="map.edittype!=null">
                 edittype = #{map.edittype},
             </if>
+            <if test="map.editable!=null">
+                editable = #{map.editable},
+            </if>
+            <if test="map.editoptions!=null">
+                editoptions = #{map.editoptions},
+            </if>
+            <if test="map.editrules!=null">
+                editrules = #{map.editrules},
+            </if>
+            <if test="map.formatter!=null">
+                formatter = #{map.formatter},
+            </if>
+            <if test="map.formatoptions!=null">
+                formatoptions = #{map.formatoptions},
+            </if>
             <if test="map.unformat!=null">
                 unformat = #{map.unformat},
+            </if>
+            <if test="map.hide!=null">
+                hide = #{map.hide},
+            </if>
+            <if test="map.unedit!=null">
+                unedit = #{map.unedit},
             </if>
             <if test="map.description!=null">
                 description = #{map.description},
@@ -219,14 +274,32 @@ selectList
             <if test="update.width!=null">
                 width = #{update.width},
             </if>
-            <if test="update.editoptions!=null">
-                editoptions = #{update.editoptions},
-            </if>
             <if test="update.edittype!=null">
                 edittype = #{update.edittype},
             </if>
+            <if test="update.editable!=null">
+                editable = #{update.editable},
+            </if>
+            <if test="update.editoptions!=null">
+                editoptions = #{update.editoptions},
+            </if>
+            <if test="update.editrules!=null">
+                editrules = #{update.editrules},
+            </if>
+            <if test="update.formatter!=null">
+                formatter = #{update.formatter},
+            </if>
+            <if test="update.formatoptions!=null">
+                formatoptions = #{update.formatoptions},
+            </if>
             <if test="update.unformat!=null">
                 unformat = #{update.unformat},
+            </if>
+            <if test="update.hide!=null">
+                hide = #{update.hide},
+            </if>
+            <if test="update.unedit!=null">
+                unedit = #{update.unedit},
             </if>
             <if test="update.description!=null">
                 description = #{update.description},
@@ -270,14 +343,32 @@ selectList
             <if test="condition.width!=null">
                 AND width = #{condition.width}
             </if>
-            <if test="condition.editoptions!=null">
-                AND editoptions = #{condition.editoptions}
-            </if>
             <if test="condition.edittype!=null">
                 AND edittype = #{condition.edittype}
             </if>
+            <if test="condition.editable!=null">
+                AND editable = #{condition.editable}
+            </if>
+            <if test="condition.editoptions!=null">
+                AND editoptions = #{condition.editoptions}
+            </if>
+            <if test="condition.editrules!=null">
+                AND editrules = #{condition.editrules}
+            </if>
+            <if test="condition.formatter!=null">
+                AND formatter = #{condition.formatter}
+            </if>
+            <if test="condition.formatoptions!=null">
+                AND formatoptions = #{condition.formatoptions}
+            </if>
             <if test="condition.unformat!=null">
                 AND unformat = #{condition.unformat}
+            </if>
+            <if test="condition.hide!=null">
+                AND hide = #{condition.hide}
+            </if>
+            <if test="condition.unedit!=null">
+                AND unedit = #{condition.unedit}
             </if>
             <if test="condition.description!=null">
                 AND description = #{condition.description}
@@ -290,7 +381,6 @@ selectList
 
     <insert id="insertMap" >
         INSERT INTO mubs_resource_grid (
-                id,
                 creator,
                 createDate,
                 lastModifier,
@@ -301,28 +391,39 @@ selectList
                 colId,
                 orderNum,
                 width,
-                editoptions,
                 edittype,
+                editable,
+                editoptions,
+                editrules,
+                formatter,
+                formatoptions,
                 unformat,
+                hide,
+                unedit,
                 description,
                 moduleName
         ) VALUES (
-                #{map.id},
-                #{map.creator},
-                #{map.createDate},
-                #{map.lastModifier},
-                #{map.lastModDate},
-                #{map.status},
-                #{map.resId},
-                #{map.displayName},
-                #{map.colId},
-                #{map.orderNum},
-                #{map.width},
-                #{map.editoptions},
-                #{map.edittype},
-                #{map.unformat},
-                #{map.description},
-                #{map.moduleName}
+                    #{map.creator},
+                    #{map.createDate},
+                    #{map.lastModifier},
+                    #{map.lastModDate},
+                    #{map.status},
+                    #{map.resId},
+                    #{map.displayName},
+                    #{map.colId},
+                    #{map.orderNum},
+                    #{map.width},
+                    #{map.edittype},
+                    #{map.editable},
+                    #{map.editoptions},
+                    #{map.editrules},
+                    #{map.formatter},
+                    #{map.formatoptions},
+                    #{map.unformat},
+                    #{map.hide},
+                    #{map.unedit},
+                    #{map.description},
+                    #{map.moduleName}
         )
     </insert>
 
@@ -340,9 +441,15 @@ selectList
             colId = #{colId},
             orderNum = #{orderNum},
             width = #{width},
-            editoptions = #{editoptions},
             edittype = #{edittype},
+            editable = #{editable},
+            editoptions = #{editoptions},
+            editrules = #{editrules},
+            formatter = #{formatter},
+            formatoptions = #{formatoptions},
             unformat = #{unformat},
+            hide = #{hide},
+            unedit = #{unedit},
             description = #{description},
             moduleName = #{moduleName},
         </trim>
@@ -395,14 +502,32 @@ selectList
             <if test="width!=null">
                 AND width = #{width}
             </if>
-            <if test="editoptions!=null">
-                AND editoptions = #{editoptions}
-            </if>
             <if test="edittype!=null">
                 AND edittype = #{edittype}
             </if>
+            <if test="editable!=null">
+                AND editable = #{editable}
+            </if>
+            <if test="editoptions!=null">
+                AND editoptions = #{editoptions}
+            </if>
+            <if test="editrules!=null">
+                AND editrules = #{editrules}
+            </if>
+            <if test="formatter!=null">
+                AND formatter = #{formatter}
+            </if>
+            <if test="formatoptions!=null">
+                AND formatoptions = #{formatoptions}
+            </if>
             <if test="unformat!=null">
                 AND unformat = #{unformat}
+            </if>
+            <if test="hide!=null">
+                AND hide = #{hide}
+            </if>
+            <if test="unedit!=null">
+                AND unedit = #{unedit}
             </if>
             <if test="description!=null">
                 AND description = #{description}
@@ -432,6 +557,9 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
         LIMIT 0,1
     </select>
 
@@ -440,12 +568,18 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid WHERE
         ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="findAll" resultType="ResourceGrid">
         SELECT
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryPage" resultType="ResourceGrid">
@@ -457,8 +591,79 @@ selectList
             <if test="condition.whereSql != null">
                 and id in (#{condition.whereSql})
             </if>
-        </where>
 
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
+            </if>
+            <if test="condition.resId!=null">
+                ${condition.groupOp}   resId  ${condition.resId.op}  #{condition.resId.data}
+            </if>
+            <if test="condition.displayName!=null">
+                ${condition.groupOp}   displayName  ${condition.displayName.op}  #{condition.displayName.data}
+            </if>
+            <if test="condition.colId!=null">
+                ${condition.groupOp}   colId  ${condition.colId.op}  #{condition.colId.data}
+            </if>
+            <if test="condition.orderNum!=null">
+                ${condition.groupOp}   orderNum  ${condition.orderNum.op}  #{condition.orderNum.data}
+            </if>
+            <if test="condition.width!=null">
+                ${condition.groupOp}   width  ${condition.width.op}  #{condition.width.data}
+            </if>
+            <if test="condition.edittype!=null">
+                ${condition.groupOp}   edittype  ${condition.edittype.op}  #{condition.edittype.data}
+            </if>
+            <if test="condition.editable!=null">
+                ${condition.groupOp}   editable  ${condition.editable.op}  #{condition.editable.data}
+            </if>
+            <if test="condition.editoptions!=null">
+                ${condition.groupOp}   editoptions  ${condition.editoptions.op}  #{condition.editoptions.data}
+            </if>
+            <if test="condition.editrules!=null">
+                ${condition.groupOp}   editrules  ${condition.editrules.op}  #{condition.editrules.data}
+            </if>
+            <if test="condition.formatter!=null">
+                ${condition.groupOp}   formatter  ${condition.formatter.op}  #{condition.formatter.data}
+            </if>
+            <if test="condition.formatoptions!=null">
+                ${condition.groupOp}   formatoptions  ${condition.formatoptions.op}  #{condition.formatoptions.data}
+            </if>
+            <if test="condition.unformat!=null">
+                ${condition.groupOp}   unformat  ${condition.unformat.op}  #{condition.unformat.data}
+            </if>
+            <if test="condition.hide!=null">
+                ${condition.groupOp}   hide  ${condition.hide.op}  #{condition.hide.data}
+            </if>
+            <if test="condition.unedit!=null">
+                ${condition.groupOp}   unedit  ${condition.unedit.op}  #{condition.unedit.data}
+            </if>
+            <if test="condition.description!=null">
+                ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
+            </if>
+            <if test="condition.moduleName!=null">
+                ${condition.groupOp}   moduleName  ${condition.moduleName.op}  #{condition.moduleName.data}
+            </if>
+
+
+    </where>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
         </if>
@@ -469,55 +674,76 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id like '%#{id}%'
+            <if test="condition.id!=null">
+                AND id like CONCAT('%', #{condition.id} , '%')
             </if>
-            <if test="creator!=null">
-                AND creator like '%#{creator}%'
+            <if test="condition.creator!=null">
+                AND creator like CONCAT('%', #{condition.creator} , '%')
             </if>
-            <if test="createDate!=null">
-                AND createDate like '%#{createDate}%'
+            <if test="condition.createDate!=null">
+                AND createDate like CONCAT('%', #{condition.createDate} , '%')
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier like '%#{lastModifier}%'
+            <if test="condition.lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{condition.lastModifier} , '%')
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate like '%#{lastModDate}%'
+            <if test="condition.lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{condition.lastModDate} , '%')
             </if>
-            <if test="status!=null">
-                AND status like '%#{status}%'
+            <if test="condition.status!=null">
+                AND status like CONCAT('%', #{condition.status} , '%')
             </if>
-            <if test="resId!=null">
-                AND resId like '%#{resId}%'
+            <if test="condition.resId!=null">
+                AND resId like CONCAT('%', #{condition.resId} , '%')
             </if>
-            <if test="displayName!=null">
-                AND displayName like '%#{displayName}%'
+            <if test="condition.displayName!=null">
+                AND displayName like CONCAT('%', #{condition.displayName} , '%')
             </if>
-            <if test="colId!=null">
-                AND colId like '%#{colId}%'
+            <if test="condition.colId!=null">
+                AND colId like CONCAT('%', #{condition.colId} , '%')
             </if>
-            <if test="orderNum!=null">
-                AND orderNum like '%#{orderNum}%'
+            <if test="condition.orderNum!=null">
+                AND orderNum like CONCAT('%', #{condition.orderNum} , '%')
             </if>
-            <if test="width!=null">
-                AND width like '%#{width}%'
+            <if test="condition.width!=null">
+                AND width like CONCAT('%', #{condition.width} , '%')
             </if>
-            <if test="editoptions!=null">
-                AND editoptions like '%#{editoptions}%'
+            <if test="condition.edittype!=null">
+                AND edittype like CONCAT('%', #{condition.edittype} , '%')
             </if>
-            <if test="edittype!=null">
-                AND edittype like '%#{edittype}%'
+            <if test="condition.editable!=null">
+                AND editable like CONCAT('%', #{condition.editable} , '%')
             </if>
-            <if test="unformat!=null">
-                AND unformat like '%#{unformat}%'
+            <if test="condition.editoptions!=null">
+                AND editoptions like CONCAT('%', #{condition.editoptions} , '%')
             </if>
-            <if test="description!=null">
-                AND description like '%#{description}%'
+            <if test="condition.editrules!=null">
+                AND editrules like CONCAT('%', #{condition.editrules} , '%')
             </if>
-            <if test="moduleName!=null">
-                AND moduleName like '%#{moduleName}%'
+            <if test="condition.formatter!=null">
+                AND formatter like CONCAT('%', #{condition.formatter} , '%')
+            </if>
+            <if test="condition.formatoptions!=null">
+                AND formatoptions like CONCAT('%', #{condition.formatoptions} , '%')
+            </if>
+            <if test="condition.unformat!=null">
+                AND unformat like CONCAT('%', #{condition.unformat} , '%')
+            </if>
+            <if test="condition.hide!=null">
+                AND hide like CONCAT('%', #{condition.hide} , '%')
+            </if>
+            <if test="condition.unedit!=null">
+                AND unedit like CONCAT('%', #{condition.unedit} , '%')
+            </if>
+            <if test="condition.description!=null">
+                AND description like CONCAT('%', #{condition.description} , '%')
+            </if>
+            <if test="condition.moduleName!=null">
+                AND moduleName like CONCAT('%', #{condition.moduleName} , '%')
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
 
@@ -526,56 +752,76 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="status!=null">
-                AND status = #{status}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
-            <if test="resId!=null">
-                AND resId = #{resId}
+            <if test="condition.resId!=null">
+                AND resId = #{condition.resId}
             </if>
-            <if test="displayName!=null">
-                AND displayName = #{displayName}
+            <if test="condition.displayName!=null">
+                AND displayName = #{condition.displayName}
             </if>
-            <if test="colId!=null">
-                AND colId = #{colId}
+            <if test="condition.colId!=null">
+                AND colId = #{condition.colId}
             </if>
-            <if test="orderNum!=null">
-                AND orderNum = #{orderNum}
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
             </if>
-            <if test="width!=null">
-                AND width = #{width}
+            <if test="condition.width!=null">
+                AND width = #{condition.width}
             </if>
-            <if test="editoptions!=null">
-                AND editoptions = #{editoptions}
+            <if test="condition.edittype!=null">
+                AND edittype = #{condition.edittype}
             </if>
-            <if test="edittype!=null">
-                AND edittype = #{edittype}
+            <if test="condition.editable!=null">
+                AND editable = #{condition.editable}
             </if>
-            <if test="unformat!=null">
-                AND unformat = #{unformat}
+            <if test="condition.editoptions!=null">
+                AND editoptions = #{condition.editoptions}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.editrules!=null">
+                AND editrules = #{condition.editrules}
             </if>
-            <if test="moduleName!=null">
-                AND moduleName = #{moduleName}
+            <if test="condition.formatter!=null">
+                AND formatter = #{condition.formatter}
+            </if>
+            <if test="condition.formatoptions!=null">
+                AND formatoptions = #{condition.formatoptions}
+            </if>
+            <if test="condition.unformat!=null">
+                AND unformat = #{condition.unformat}
+            </if>
+            <if test="condition.hide!=null">
+                AND hide = #{condition.hide}
+            </if>
+            <if test="condition.unedit!=null">
+                AND unedit = #{condition.unedit}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.moduleName!=null">
+                AND moduleName = #{condition.moduleName}
             </if>
         </trim>
-        ORDER BY orderNum
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="queryOne" parameterType="java.util.Map" resultType="ResourceGrid">
@@ -583,60 +829,150 @@ selectList
         <include refid="Base_Column_List" />
         FROM mubs_resource_grid
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="id!=null">
-                AND id = #{id}
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
             </if>
-            <if test="creator!=null">
-                AND creator = #{creator}
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
             </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
-            <if test="lastModifier!=null">
-                AND lastModifier = #{lastModifier}
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
             </if>
-            <if test="lastModDate!=null">
-                AND lastModDate = #{lastModDate}
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="status!=null">
-                AND status = #{status}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
-            <if test="resId!=null">
-                AND resId = #{resId}
+            <if test="condition.resId!=null">
+                AND resId = #{condition.resId}
             </if>
-            <if test="displayName!=null">
-                AND displayName = #{displayName}
+            <if test="condition.displayName!=null">
+                AND displayName = #{condition.displayName}
             </if>
-            <if test="colId!=null">
-                AND colId = #{colId}
+            <if test="condition.colId!=null">
+                AND colId = #{condition.colId}
             </if>
-            <if test="orderNum!=null">
-                AND orderNum = #{orderNum}
+            <if test="condition.orderNum!=null">
+                AND orderNum = #{condition.orderNum}
             </if>
-            <if test="width!=null">
-                AND width = #{width}
+            <if test="condition.width!=null">
+                AND width = #{condition.width}
             </if>
-            <if test="editoptions!=null">
-                AND editoptions = #{editoptions}
+            <if test="condition.edittype!=null">
+                AND edittype = #{condition.edittype}
             </if>
-            <if test="edittype!=null">
-                AND edittype = #{edittype}
+            <if test="condition.editable!=null">
+                AND editable = #{condition.editable}
             </if>
-            <if test="unformat!=null">
-                AND unformat = #{unformat}
+            <if test="condition.editoptions!=null">
+                AND editoptions = #{condition.editoptions}
             </if>
-            <if test="description!=null">
-                AND description = #{description}
+            <if test="condition.editrules!=null">
+                AND editrules = #{condition.editrules}
             </if>
-            <if test="moduleName!=null">
-                AND moduleName = #{moduleName}
+            <if test="condition.formatter!=null">
+                AND formatter = #{condition.formatter}
+            </if>
+            <if test="condition.formatoptions!=null">
+                AND formatoptions = #{condition.formatoptions}
+            </if>
+            <if test="condition.unformat!=null">
+                AND unformat = #{condition.unformat}
+            </if>
+            <if test="condition.hide!=null">
+                AND hide = #{condition.hide}
+            </if>
+            <if test="condition.unedit!=null">
+                AND unedit = #{condition.unedit}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.moduleName!=null">
+                AND moduleName = #{condition.moduleName}
             </if>
         </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
         limit 0,1
     </select>
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(id) FROM mubs_resource_grid
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="creator!=null">
+               ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
+           </if>
+           <if test="lastModifier!=null">
+               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+           </if>
+           <if test="lastModDate!=null">
+               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="status!=null">
+               ${groupOp} status ${status.op}  #{status.data}
+           </if>
+           <if test="resId!=null">
+               ${groupOp} resId ${resId.op}  #{resId.data}
+           </if>
+           <if test="displayName!=null">
+               ${groupOp} displayName ${displayName.op}  #{displayName.data}
+           </if>
+           <if test="colId!=null">
+               ${groupOp} colId ${colId.op}  #{colId.data}
+           </if>
+           <if test="orderNum!=null">
+               ${groupOp} orderNum ${orderNum.op}  #{orderNum.data}
+           </if>
+           <if test="width!=null">
+               ${groupOp} width ${width.op}  #{width.data}
+           </if>
+           <if test="edittype!=null">
+               ${groupOp} edittype ${edittype.op}  #{edittype.data}
+           </if>
+           <if test="editable!=null">
+               ${groupOp} editable ${editable.op}  #{editable.data}
+           </if>
+           <if test="editoptions!=null">
+               ${groupOp} editoptions ${editoptions.op}  #{editoptions.data}
+           </if>
+           <if test="editrules!=null">
+               ${groupOp} editrules ${editrules.op}  #{editrules.data}
+           </if>
+           <if test="formatter!=null">
+               ${groupOp} formatter ${formatter.op}  #{formatter.data}
+           </if>
+           <if test="formatoptions!=null">
+               ${groupOp} formatoptions ${formatoptions.op}  #{formatoptions.data}
+           </if>
+           <if test="unformat!=null">
+               ${groupOp} unformat ${unformat.op}  #{unformat.data}
+           </if>
+           <if test="hide!=null">
+               ${groupOp} hide ${hide.op}  #{hide.data}
+           </if>
+           <if test="unedit!=null">
+               ${groupOp} unedit ${unedit.op}  #{unedit.data}
+           </if>
+           <if test="description!=null">
+               ${groupOp} description ${description.op}  #{description.data}
+           </if>
+           <if test="moduleName!=null">
+               ${groupOp} moduleName ${moduleName.op}  #{moduleName.data}
+           </if>
+
+       </where>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Integer">

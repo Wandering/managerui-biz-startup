@@ -1,7 +1,8 @@
 package cn.thinkjoy.dto;
 
-import com.google.common.collect.Lists;
+//import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,7 +10,7 @@ public class ResourceDTO extends BaseDTO {
 	private long resourceId;  //本身id
 	private String resourceName;
 	private long parentResourceId;
-	private List<ResourceDTO> resourceInfos  = Lists.newArrayList();
+	private List<ResourceDTO> resourceInfos  = new ArrayList<ResourceDTO>();
 	private long roleId;
 	
 	
