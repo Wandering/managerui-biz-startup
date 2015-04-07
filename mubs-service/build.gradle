@@ -12,5 +12,4 @@ dependencies {
 //    compile "com.101tec:zkclient:$dubboZKClientVersion"
 
     compile project(':mubs-api')
-    compile 'cn.thinkjoy.ucm:ucm-api:0.1.0-SNAPSHOT'
 }
