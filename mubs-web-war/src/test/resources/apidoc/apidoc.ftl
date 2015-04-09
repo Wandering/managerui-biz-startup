@@ -16,7 +16,7 @@
                     </tr>
                     <#list apiDoc.apiSummaryList as apiSummary>
                     <tr>
-                        <td class="confluenceTd"></td>
+                        <td class="confluenceTd">${apiSummary_index + 1}</td>
                         <td class="confluenceTd">${apiSummary.name}</td>
                         <td class="confluenceTd">${apiSummary.url}</td>
                         <td class="confluenceTd">${apiSummary.desc}</td>
@@ -31,7 +31,7 @@
         <p/><p/>
         <#list apiDoc.apiDetailList as apiDetail>
             <li>
-                1. ${apiDetail.url}  【${apiDetail.name}】<br>
+            ${apiDetail_index + 1}. ${apiDetail.url}  【${apiDetail.name}】<br>
                     ${apiDetail.desc}
 
                 <#if apiDetail.pathVar?exists>
