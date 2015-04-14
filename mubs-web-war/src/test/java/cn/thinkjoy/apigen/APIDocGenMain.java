@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO 一句话描述该类用途
@@ -28,15 +30,18 @@ public class APIDocGenMain {
 
     public static void genDoc(ApiDoc apiDoc){
         Configuration cfg = new Configuration();
+        //cfg.setClassForTemplateLoading(APIDocGenMain.class, "apidoc");
         cfg.setDefaultEncoding("UTF-8");
 
+        String rootPath = "//Users/qyang/works/workspace/pc/pc-credit/credit-web-war/src/test/resources/apidoc/";
         Writer out = null;
         try {
-            Template template = cfg.getTemplate("apidoc.ftl");
-            String path = "";
-            File file = new File(path +"apidoc.html");
+            Template template = cfg.getTemplate("credit-web-war/src/test/resources/apidoc/apidoc.ftl");
+            File file = new File(rootPath +"apidoc.html");
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-            template.process(apiDoc, out);
+            Map<String, Object> root = new HashMap<String, Object>();
+            root.put("apiDoc", apiDoc);
+            template.process(root, out);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TemplateException e) {
