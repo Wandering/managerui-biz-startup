@@ -103,7 +103,7 @@
                 <table class="confluenceTable">
                     <tbody>
                     <tr>
-                        <th class="confluenceTh" colspan="7">请求参数(${apiDetail.requestType} 【${apiDetail.requestDesc}】)</th>
+                        <th class="confluenceTh" colspan="7">请求参数(<#if apiDetail.requestType?exists> ${apiDetail.requestType} </#if> <#if apiDetail.requestDesc?exists>【${apiDetail.requestDesc}】</#if>)</th>
                     </tr>
                         <#if apiDetail.request?exists>
                         <#if (apiDetail.request?size >0)>
