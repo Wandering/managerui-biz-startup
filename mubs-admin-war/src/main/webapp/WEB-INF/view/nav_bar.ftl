@@ -188,7 +188,7 @@
             <ul class="dropdown-menu dropdown-navbar">
                 <li>
                     <a href="#">
-                        <img src="../../assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                        <img src="${path}/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Alex:</span>
@@ -205,7 +205,7 @@
 
                 <li>
                     <a href="#">
-                        <img src="../../assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+                        <img src="${path}/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Susan:</span>
@@ -222,7 +222,7 @@
 
                 <li>
                     <a href="#">
-                        <img src="../../assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+                        <img src="${path}/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Bob:</span>
@@ -239,7 +239,7 @@
 
                 <li>
                     <a href="#">
-                        <img src="../../assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+                        <img src="${path}/assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Kate:</span>
@@ -256,7 +256,7 @@
 
                 <li>
                     <a href="#">
-                        <img src="../../assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+                        <img src="${path}/assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Fred:</span>
@@ -285,7 +285,7 @@
 <!-- #section:basics/navbar.user_menu -->
 <li class="light-blue">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-        <img class="nav-user-photo" src="../../assets/avatars/user.jpg" alt="Jason's Photo" />
+        <img class="nav-user-photo" src="${path}/assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
 									Jason

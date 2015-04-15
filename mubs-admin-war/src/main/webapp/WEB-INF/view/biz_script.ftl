@@ -2,32 +2,32 @@
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='../../assets/js/jquery.min.js'>" + "<" + "/script>");
+    window.jQuery || document.write("<script src='${path}/assets/js/jquery.min.js'>" + "<" + "/script>");
 </script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='../../assets/js/jquery1x.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='${path}/assets/js/jquery1x.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
 <script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write("<script src='../../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    if ('ontouchstart' in document.documentElement) document.write("<script src='${path}/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 </script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="${path}/assets/js/bootstrap.min.js"></script>
 
 <!-- page specific plugin scripts -->
-<script src="../../assets/js/date-time/bootstrap-datepicker.min.js"></script>
-<script src="../../assets/js/jqGrid/jquery.jqGrid.min.js"></script>
-<#--<script src="../../assets/js/uncompressed/jqGrid/jquery.jqGrid.js"></script>-->
-<script src="../../assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+<script src="${path}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="${path}/assets/js/jqGrid/jquery.jqGrid.min.js"></script>
+<#--<script src="${path}/assets/js/uncompressed/jqGrid/jquery.jqGrid.js"></script>-->
+<script src="${path}/assets/js/jqGrid/i18n/grid.locale-en.js"></script>
 
 <!-- ace scripts -->
-<script src="../../assets/js/ace-elements.min.js"></script>
-<script src="../../assets/js/ace.min.js"></script>
-<script src="../../assets/js/fuelux/jquery.ztree.core-3.5.min.js"></script>
-<script src="../../assets/js/fuelux/jquery.ztree.excheck-3.5.min.js"></script>
+<script src="${path}/assets/js/ace-elements.min.js"></script>
+<script src="${path}/assets/js/ace.min.js"></script>
+<script src="${path}/assets/js/fuelux/jquery.ztree.core-3.5.min.js"></script>
+<script src="${path}/assets/js/fuelux/jquery.ztree.excheck-3.5.min.js"></script>
 
 
 <!-- inline scripts related to this page -->
@@ -73,7 +73,7 @@ jQuery(function ($) {
         },
         //根据统一协议格式做处理
         beforeProcessing: function (data) {
-            if ("000000" != data.rtnCode) {
+            if ("0000000" != data.rtnCode) {
                 //TODO
                 alert("请求远程数据失败！" + data.msg)
             }
@@ -462,13 +462,13 @@ jQuery(function ($) {
 });
 </script>
 
-<link rel="stylesheet" href="../../assets/css/ace.onpage-help.css"/>
-<link rel="stylesheet" href="../../docs/assets/js/themes/sunburst.css"/>
+<link rel="stylesheet" href="${path}/assets/css/ace.onpage-help.css"/>
+<link rel="stylesheet" href="${path}/docs/assets/js/themes/sunburst.css"/>
 
 <script type="text/javascript"> ace.vars['base'] = '..'; </script>
-<script src="../../assets/js/ace/ace.onpage-help.js"></script>
-<script src="../../docs/assets/js/rainbow.js"></script>
-<script src="../../docs/assets/js/language/generic.js"></script>
-<script src="../../docs/assets/js/language/html.js"></script>
-<script src="../../docs/assets/js/language/css.js"></script>
-<script src="../../docs/assets/js/language/javascript.js"></script>
+<script src="${path}/assets/js/ace/ace.onpage-help.js"></script>
+<script src="${path}/docs/assets/js/rainbow.js"></script>
+<script src="${path}/docs/assets/js/language/generic.js"></script>
+<script src="${path}/docs/assets/js/language/html.js"></script>
+<script src="${path}/docs/assets/js/language/css.js"></script>
+<script src="${path}/docs/assets/js/language/javascript.js"></script>
