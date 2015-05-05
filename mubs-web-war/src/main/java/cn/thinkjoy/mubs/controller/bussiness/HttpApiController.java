@@ -1,5 +1,6 @@
 package cn.thinkjoy.mubs.controller.bussiness;
 
+import cn.thinkjoy.common.domain.ListWrapper;
 import cn.thinkjoy.common.protocol.RequestT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,20 @@ public class HttpApiController {
     public String service1(@RequestBody RequestT<String> request) {
         System.out.println("run here");
         return "return str";
+    }
+
+    /**
+     * 示例服务
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public ListWrapper<String> service2(@RequestBody RequestT<String> request) {
+        System.out.println("run here");
+        ListWrapper<String> listWrapper = new ListWrapper<String>();
+
+        return listWrapper;
     }
 }
 
