@@ -26,37 +26,19 @@
         $('#edit_modal').modal('show');
     }
 
-    //同步获取 jqgrid编辑页面 select 组件值
-    function dynGetData(ajaxUrl){
-        var returnStr = "";
-        $.ajaxSettings.async = false;
-        $.getJSON(ajaxUrl, function(result){
-            //debugger;
-            if("0000000" == result.rtnCode){
-                for(i = 0; i < result.bizData.rows.length; i++){
-                    if(i < result.bizData.rows.length - 1) {
-                        returnStr += result.bizData.rows[i].id + ":" + result.bizData.rows[i].name + ";";
-                    } else {
-                        returnStr += result.bizData.rows[i].id + ":" + result.bizData.rows[i].name;
-                    }
-                }
-
-            } else {
-                alert("request error");
-            }
-
-        });
-        $.ajaxSettings.async = true;
-        return returnStr;
-    }
     /**
      * 同步获取 jqgrid编辑页面 select 组件值
-     * @param ajaxUrl
+     * @param ajaxUrl 请求地址
+     * @param isAddBlank 是否添加空项 true 添加 false 不添加
      * @returns {string}
      * @author yhwang
      */
-    function dynGetDataIncludeBlank(ajaxUrl){
-        var returnStr = "0"+":"+"请选择"+";";
+    function dynGetData(ajaxUrl,isAddBlank){
+        if(isAddBlank  === true){
+            var returnStr = "0"+":"+"请选择"+";";
+        }else{
+            var returnStr = "";
+        }
         $.ajaxSettings.async = false;
         $.getJSON(ajaxUrl, function(result){
             //debugger;
@@ -77,7 +59,6 @@
         $.ajaxSettings.async = true;
         return returnStr;
     }
-
     //对一个字段多个属性值组合的列进行显示
     function multiValsShow(cellvalue, options, rowObject){
         if(cellvalue == null || cellvalue=='' ||cellvalue ==0){
