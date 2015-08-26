@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: "sonar-runner"
+//apply plugin: "sonar-runner"
 
 apply from: 'dependencies.gradle'
 sourceCompatibility = 1.7
@@ -8,24 +8,10 @@ sourceCompatibility = 1.7
 //删除父目录下的test，避免test task执行失败
 delete "${buildDir}/classes/test"
 
-sonarRunner {
-    sonarProperties {
-        property "sonar.host.url", "http://sonar.thinkjoy.local"
-        property "sonar.jdbc.url", "jdbc:mysql://sonar.thinkjoy.local:3306/sonar?useUnicode=true&characterEncoding=utf8"
-        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-        property "sonar.jdbc.username", "sonar"
-        property "sonar.jdbc.password", "sonar!@#\$%^&*()_+"
-        property "sonar.branch", "develop"
-        property "sonar.dynamicAnalysis", "reuseReports"
-//        properties["sonar.sources"] = android.sourceSets.main.java.srcDirs
-//        properties["sonar.tests"] = android.sourceSets.instrumentTest.java.srcDirs
-//        properties["sonar.binaries"] = file("build/classes/debug")
-        property "sonar.junit.reportsPath","build/test-results/"
-    }
-}
+
 
 buildscript{
-    repositories { maven { url 'http://repo.thinkjoy.local/content/groups/public/' } }
+    repositories { maven { url 'http://repo.thinkjoy.cn/content/groups/public/' } }
 
     dependencies{
         classpath 'cn.thinkjoy.gradle.plugins:gradle-gitflow-plugin:1.0.1+'
@@ -50,7 +36,7 @@ allprojects {
     apply plugin: 'maven-publish-auth'
 
     repositories {
-        repositories { maven { url 'http://repo.thinkjoy.local/content/groups/public/' } }
+        repositories { maven { url 'http://repo.thinkjoy.cn/content/groups/public/' } }
         mavenLocal()
         mavenCentral()
     }
@@ -63,7 +49,7 @@ allprojects {
         repositories {
             maven {
                 name = 'thinkjoy'
-                url "http://repo.thinkjoy.local/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}"
+                url "http://repo.thinkjoy.cn/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}"
             }
         }
     }

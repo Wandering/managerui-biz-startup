@@ -1,6 +1,6 @@
 allprojects {
-    thinkjoyCommonVersion = "0.0.61-SNAPSHOT"
-    thinkjoyCloudstackVersion = "0.0.18-SNAPSHOT"
+    thinkjoyCommonVersion = "0.1.2-SNAPSHOT"
+    thinkjoyCloudstackVersion = "0.0.29-SNAPSHOT"
 
     springTestVersion = "4.1.0.RELEASE"
 
