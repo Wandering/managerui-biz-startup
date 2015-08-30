@@ -1,5 +1,5 @@
 allprojects {
-    thinkjoyCommonVersion = "0.1.2-SNAPSHOT"
+    thinkjoyCommonVersion = "0.1.9-SNAPSHOT"
     thinkjoyCloudstackVersion = "0.0.29-SNAPSHOT"
 
     springTestVersion = "4.1.0.RELEASE"
@@ -10,6 +10,5 @@ allprojects {
     dubboZKClientVersion = "0.4"
 
     freemarkerVersion = "2.3.20"
-
-    ucmVersion = "0.1.4-SNAPSHOT"
+    ucmVersion = "0.0.27-SNAPSHOT"
 }

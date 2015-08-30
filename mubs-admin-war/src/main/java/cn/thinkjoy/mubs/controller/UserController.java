@@ -7,6 +7,7 @@
 
 package cn.thinkjoy.mubs.controller;
 
+import cn.thinkjoy.cloudstack.context.CloudContextFactory;
 import cn.thinkjoy.common.domain.UserDomain;
 import cn.thinkjoy.common.domain.view.BizData4Page;
 import cn.thinkjoy.common.managerui.controller.AbstractAdminController;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -56,6 +58,13 @@ public class UserController extends AbstractAdminController {
 
 
     /**
+     * 这个字段需要在
+     */
+    private final static String appKey = CloudContextFactory.getCloudContext().getApplicationName();
+    private final static String prodcut_code = CloudContextFactory.getCloudContext().getProductCode();
+
+
+    /**
      * 页面主请求
      *
      * @param request
@@ -79,7 +88,7 @@ public class UserController extends AbstractAdminController {
     public BizData4Page findAllAdmins(HttpServletRequest request, HttpServletResponse response) {
         List<UserDTO> assignUsers = Lists.newArrayList();
 
-        List<User> users = iUserManagementFacade.getUsersByAppName("mubs");
+        List<User> users = iUserManagementFacade.getUsersByAppName(appKey, prodcut_code);
 
         for (User user : users) {
             UserDTO userDTO = new UserDTO();
@@ -141,7 +150,7 @@ public class UserController extends AbstractAdminController {
             User u = iUserManagementFacade.createNewUser(userDTO.getUsername(),
                     userDTO.getPassword());
             if (u != null) {
-                iUserManagementFacade.authorization(u.getId(), "mubs", true);
+                iUserManagementFacade.authorization(u.getId(), appKey, prodcut_code, true);
             }
 
         }
@@ -196,7 +205,7 @@ public class UserController extends AbstractAdminController {
 
             RoleUser roleUser = iRoleUserService.queryOne(map);
             if (roleUser != null) {
-                roleDTO.setUserId(roleUser.getUserId());
+                roleDTO.setUserId(Long.valueOf(roleUser.getUserId().toString()));
             }
             roleDTOs.add(roleDTO);
 
