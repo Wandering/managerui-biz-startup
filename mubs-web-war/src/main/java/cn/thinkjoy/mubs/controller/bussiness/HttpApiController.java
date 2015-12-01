@@ -35,7 +35,7 @@ public class HttpApiController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login1", method = RequestMethod.POST)
     @ResponseBody
     public ListWrapper<String> service2(@RequestBody RequestT<String> request) {
         System.out.println("run here");

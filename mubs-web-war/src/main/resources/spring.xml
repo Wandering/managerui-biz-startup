@@ -13,6 +13,16 @@
     <!-- 引入service的spring配置文件 -->
     <import resource="classpath:springme.xml"/>
 
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:ucenter-client.properties</value>
+        </property>
+    </bean>
+
+
+    <import resource="classpath:spring-ucenter-client.xml"/>
+
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/view/" />
