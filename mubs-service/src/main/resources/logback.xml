@@ -70,17 +70,17 @@
         </encoder>
     </appender>
 
-    <logger name="SPECLOGGER" level="DEBUG">
+    <logger name="SPECLOGGER" level="info">
         <appender-ref ref="SPECLOGGER-APPENDER" additivity="false"/>
     </logger>
 
     <!-- 这里平时的level为WARN，跟踪问题时才设置为DEBUG -->
-    <logger name="cn.thinkjoy" level="WARN">
+    <logger name="cn.thinkjoy" level="info">
         <appender-ref ref="DEBUG-FILE-APPENDER"/>
-        <appender-ref ref="WARN-FILE-APPENDER" />
+        <appender-ref ref="WARN-FILE-APPENDER"/>
     </logger>
 
-    <root level="DEBUG">
-        <appender-ref ref="STDOUT-APPENDER" />
+    <root level="info">
+        <appender-ref ref="STDOUT-APPENDER"/>
     </root>
 </configuration>

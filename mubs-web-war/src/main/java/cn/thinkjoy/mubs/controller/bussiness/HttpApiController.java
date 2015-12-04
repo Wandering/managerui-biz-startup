@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 示例http api
  */
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value = "/user")
 public class HttpApiController {
-    private static final Logger LOGGER= LoggerFactory.getLogger(HttpApiController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpApiController.class);
 
     /**
      * 示例服务
+     *
      * @param request
      * @return
      */
@@ -32,6 +36,7 @@ public class HttpApiController {
 
     /**
      * 示例服务
+     *
      * @param request
      * @return
      */
@@ -42,6 +47,13 @@ public class HttpApiController {
         ListWrapper<String> listWrapper = new ListWrapper<String>();
 
         return listWrapper;
+    }
+
+
+    @RequestMapping(value = "/model")
+    public ModelAndView model(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("module/" + "" +"mock.ftl");
+        return mav;
     }
 }
 

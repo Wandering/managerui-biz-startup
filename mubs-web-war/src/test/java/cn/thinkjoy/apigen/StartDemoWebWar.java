@@ -8,9 +8,9 @@ import org.eclipse.jetty.server.Server;
  */
 public class StartDemoWebWar {
 
-    public static final int PORT = 7777;
+    public static final int PORT = 8080;
     public static final String CONTEXT = "";
-    public static final String BASE_URL = "http://localhost:7777";
+    public static final String BASE_URL = "http://localhost:8080";
 
 
     public static void main(String[] args) throws Exception {

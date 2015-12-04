@@ -2,6 +2,7 @@ package cn.thinkjoy.mubs.common;
 
 import cn.thinkjoy.common.domain.UserDomain;
 import cn.thinkjoy.common.utils.UserContext;
+import com.qtone.open.QTOpenApi;
 import com.qtone.open.api.uic.dto.AccountDto;
 import com.qtone.open.ucm.BaseRequest;
 import com.qtone.open.ucm.client.IQTOAuthListener;

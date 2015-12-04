@@ -8,5 +8,5 @@ dependencies {
     compile project(':mubs-service')
     testCompile 'org.eclipse.jetty.aggregate:jetty-webapp:8.1.9.v20130131'
     testCompile 'org.eclipse.jetty:jetty-jsp:8.1.9.v20130131'
-    compile 'cn.thinkjoy.ucenter:ucenter-client:0.0.54-SNAPSHOT'
+    compile 'cn.thinkjoy.ucenter:ucenter-client:0.0.64-SNAPSHOT'
 }
