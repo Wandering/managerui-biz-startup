@@ -184,7 +184,7 @@ public class UserController extends AbstractAdminController {
      * @return
      */
 
-    @RequestMapping(value = "/user-getAllResources")
+    @RequestMapping(value = "/user/getAllResources")
     @ResponseBody
     public List<RoleDTO> getAllResource(HttpServletRequest request,
                                         HttpServletResponse response) {
@@ -225,7 +225,7 @@ public class UserController extends AbstractAdminController {
      */
 
     @ResponseBody
-    @RequestMapping(value = "/user-assign")
+    @RequestMapping(value = "/user/assign")
     public Object assign(HttpServletRequest request,
                          HttpServletResponse response, AssignDTO assign) {
         String result = null;
