@@ -500,6 +500,102 @@
             })
     </#if>
 
+    <#if actions?seq_contains("role_assign")>
+            .navButtonAdd(pager_selector, {
+                id: "add-resource-action",
+                title: "分配角色",
+                caption: "",
+                buttonicon: "ace-icon fa fa-pencil blue",
+                onClickButton: function () {
+                    if (!currentGridId) {
+                        alert("请选择一行！");
+                        return;
+                    }
+                    var resourceUrl2 = "/admin/${bizSys}/${mainObj}/getAllResources?userId=" + currentGridId;
+                    $.get(resourceUrl2, {}, function (result) {
+                        var setting = {
+                            check: {
+                                enable: true
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true
+                                },
+                                key: {
+                                    name: "resourceName",
+                                    children: "resourceInfos"
+                                }
+                            }
+                        };
+                        result = result.bizData;
+                        var zNodes = result;
+                        for (var i = 0; i < result.length; i++) {
+                            var obj = result[i];
+                            if (obj.userId) {
+                                obj.checked = true;
+
+                            }
+
+                        }
+                        var code;
+
+                        function setCheck() {
+                            var zTree = $.fn.zTree.getZTreeObj("tree1"),
+                                    py = $("#py").attr("checked") ? "p" : "",
+                                    sy = $("#sy").attr("checked") ? "s" : "",
+                                    pn = $("#pn").attr("checked") ? "p" : "",
+                                    sn = $("#sn").attr("checked") ? "s" : "",
+                                    type = { "Y": py + sy, "N": pn + sn};
+                            zTree.setting.check.chkboxType = type;
+                            showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+                        }
+
+                        function showCode(str) {
+                            if (!code) code = $("#code");
+                            code.empty();
+                            code.append("<li>" + str + "</li>");
+                        }
+
+
+                        var treeObj = $.fn.zTree.init($("#tree1"), setting, zNodes);
+                        $("#sn").bind("change", setCheck);
+
+
+                        $("#treeFixed-01").find("#sData").click(function () {
+                            var array = [];
+
+                            var nodes = treeObj.getCheckedNodes(true);
+                            for (var i = 0; i < nodes.length; i++) {
+                                var pid = nodes[i].parentResourceId;
+                                var resourceId = nodes[i].resourceId;
+                                var obj = {
+                                    "parentResourceId": pid,
+                                    "resourceId": resourceId
+                                }
+
+                                array.push(obj);
+
+                            }
+                            var resource_submit_url = "/admin/${bizSys}/${mainObj}/assign";
+                            $.post(resource_submit_url, {
+                                        objId: currentGridId,
+                                        resources: JSON.stringify(array)
+                                    }, function (result) {
+                                        $("#treeFixed-01").hide();
+                                    }
+                            );
+
+                        });
+                        $("#treeFixed-01").show();
+
+                    });
+
+
+                },
+                position: "last"
+            })
+    </#if>
+
         function style_edit_form(form) {
             //enable datepicker on "sdate" field and switches for "stock" field
             form.find('input[name=sdate]').datepicker({format:'yyyy-mm-dd' , autoclose:true})
